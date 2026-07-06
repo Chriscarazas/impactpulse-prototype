@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ImpactPulse SROI Results</title>
+    <meta name="description" content="ImpactPulse prototype SROI Results workspace with evidence, assumptions, social value, sensitivity, and decision readiness.">
+    <link rel="stylesheet" href="./src/styles/app.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to SROI results</a>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="ImpactPulse home">
+        <span class="brand-mark" aria-hidden="true">IP</span>
+        <span>ImpactPulse</span>
+      </a>
+
+      <nav class="global-nav" aria-label="Global">
+        <a href="/" aria-current="page">Projects</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#insights">Insights</a>
+        <a href="#reports">Reports</a>
+        <a href="#govern">Govern</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="button secondary" type="button" data-open-drawer>Challenge analysis</button>
+        <button class="button primary" type="button">Request approval</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="side-rail" aria-label="Guided SROI process">
+        <p class="rail-title">Guided SROI</p>
+        <ol class="step-list">
+          <li><a href="#scope"><span class="step-index">1</span><span>Scope</span></a></li>
+          <li><a href="#people"><span class="step-index">2</span><span>People</span></a></li>
+          <li><a href="#outcomes"><span class="step-index">3</span><span>Outcomes</span></a></li>
+          <li><a href="#evidence"><span class="step-index">4</span><span>Evidence</span></a></li>
+          <li><a href="#valuation"><span class="step-index">5</span><span>Valuation</span></a></li>
+          <li><a href="#adjustments"><span class="step-index">6</span><span>Adjustments</span></a></li>
+          <li><a href="#main" aria-current="step"><span class="step-index">7</span><span>SROI</span></a></li>
+          <li><a href="#sensitivity"><span class="step-index">8</span><span>Sensitivity</span></a></li>
+          <li><a href="#decision"><span class="step-index">9</span><span>Decision</span></a></li>
+          <li><a href="#report"><span class="step-index">10</span><span>Report</span></a></li>
+        </ol>
+      </aside>
+
+      <main class="main" id="main">
+        <section class="project-header" aria-labelledby="page-title">
+          <div class="project-title-row">
+            <div>
+              <p class="project-kicker">SROI Results</p>
+              <h1 id="page-title">Workforce Pathways 2026</h1>
+              <p class="lead">Estimated social value, evidence strength, and next decision for a multi-site workforce-development program.</p>
+            </div>
+            <button class="button ghost" type="button" data-open-drawer>Open review questions</button>
+          </div>
+
+          <dl class="meta-grid" aria-label="Project context">
+            <div class="meta-item">
+              <dt class="meta-label">Period</dt>
+              <dd class="meta-value">FY 2026 forecast</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Location</dt>
+              <dd class="meta-value">3 sites, Midwest US</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Readiness</dt>
+              <dd class="meta-value">Developing</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Version</dt>
+              <dd class="meta-value">Draft v0.3</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="section" aria-labelledby="result-title">
+          <div class="result-hero">
+            <div>
+              <h2 id="result-title">Estimated social value result</h2>
+              <p class="result-number">3.9<small>x</small></p>
+              <p class="result-summary">$3.90 of estimated social value for every $1 invested, with a plausible range from 2.8x to 4.8x.</p>
+              <div class="status-row" aria-label="Result status">
+                <span class="status estimated">Estimated result</span>
+                <span class="status review">Moderate confidence</span>
+                <span class="status approved">Human-reviewed model</span>
+              </div>
+              <div class="callout">
+                <strong>Recommended next decision</strong>
+                Approve the analysis for internal planning only after the transport-barrier assumption and six-month employment duration evidence are reviewed.
+              </div>
+            </div>
+            <dl class="metrics" aria-label="SROI metrics">
+              <div class="metric"><dt>Investment</dt><dd><strong>$1.2M</strong></dd></div>
+              <div class="metric"><dt>Estimated social value</dt><dd><strong>$4.7M</strong></dd></div>
+              <div class="metric"><dt>Net present value</dt><dd><strong>$3.5M</strong></dd></div>
+              <div class="metric"><dt>Probability above 1.0x</dt><dd><strong>91%</strong></dd></div>
+              <div class="metric"><dt>Evidence coverage</dt><dd><strong>74%</strong></dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <div class="main">
+            <section class="section chart-block" aria-labelledby="bridge-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="bridge-title">Gross-to-net value bridge</h2>
+                  <p>The largest uncertainty is whether transport barriers reduce sustained employment for rural participants.</p>
+                </div>
+                <span class="status verified">Traceable</span>
+              </div>
+
+              <svg class="bridge-chart" viewBox="0 0 820 320" role="img" aria-labelledby="bridge-svg-title bridge-svg-desc">
+                <title id="bridge-svg-title">Social value bridge from gross value to net value</title>
+                <desc id="bridge-svg-desc">Gross value starts at 5.8 million dollars. Deadweight, attribution, displacement, and drop-off reduce the estimate to 4.7 million dollars.</desc>
+                <line x1="70" y1="250" x2="760" y2="250" stroke="#9aa99f" stroke-width="1"></line>
+                <g>
+                  <rect x="90" y="70" width="90" height="180" fill="#087f8c"></rect>
+                  <text x="135" y="56" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">$5.8M</text>
+                  <text x="135" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Gross</text>
+                </g>
+                <g>
+                  <rect x="220" y="114" width="90" height="136" fill="#a66a00"></rect>
+                  <text x="265" y="100" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">-$0.55M</text>
+                  <text x="265" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Deadweight</text>
+                </g>
+                <g>
+                  <rect x="350" y="144" width="90" height="106" fill="#a66a00"></rect>
+                  <text x="395" y="130" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">-$0.32M</text>
+                  <text x="395" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Attribution</text>
+                </g>
+                <g>
+                  <rect x="480" y="190" width="90" height="60" fill="#b2403a"></rect>
+                  <text x="525" y="176" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">-$0.14M</text>
+                  <text x="525" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Displace</text>
+                </g>
+                <g>
+                  <rect x="610" y="166" width="90" height="84" fill="#6f4bb5"></rect>
+                  <text x="655" y="152" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">-$0.29M</text>
+                  <text x="655" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Drop-off</text>
+                </g>
+                <g>
+                  <rect x="720" y="104" width="70" height="146" fill="#2f7d32"></rect>
+                  <text x="755" y="90" text-anchor="middle" fill="#14211d" font-size="18" font-weight="700">$4.7M</text>
+                  <text x="755" y="278" text-anchor="middle" fill="#2c3934" font-size="14">Net</text>
+                </g>
+              </svg>
+
+              <div class="chart-table-wrapper">
+                <table>
+                  <caption>Bridge data table</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Item</th>
+                      <th scope="col">Value</th>
+                      <th scope="col">Evidence status</th>
+                      <th scope="col">Decision effect</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Gross outcome value</td><td>$5.8M</td><td>Derived from approved outcomes</td><td>Sets upper boundary</td></tr>
+                    <tr><td>Deadweight</td><td>-$0.55M</td><td>Estimated from local labor trend</td><td>Moderate effect</td></tr>
+                    <tr><td>Attribution</td><td>-$0.32M</td><td>Needs partner validation</td><td>Moderate effect</td></tr>
+                    <tr><td>Displacement</td><td>-$0.14M</td><td>Low risk reviewed</td><td>Low effect</td></tr>
+                    <tr><td>Drop-off</td><td>-$0.29M</td><td>Needs six-month follow-up</td><td>High effect</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="section" id="sensitivity" aria-labelledby="sensitivity-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="sensitivity-title">Sensitivity workshop</h2>
+                  <p>Adjust the most influential assumptions to see whether the decision changes.</p>
+                </div>
+                <span class="status review">Draft scenario</span>
+              </div>
+
+              <div class="assumption-controls">
+                <div class="assumption-control">
+                  <label for="deadweight">Deadweight estimate</label>
+                  <input id="deadweight" data-assumption-input type="range" min="12" max="36" value="24">
+                  <div class="control-meta"><span>Lower external trend</span><span>Higher external trend</span></div>
+                </div>
+                <div class="assumption-control">
+                  <label for="attribution">Partner attribution share</label>
+                  <input id="attribution" data-assumption-input type="range" min="8" max="34" value="18">
+                  <div class="control-meta"><span>ImpactPulse share higher</span><span>Partner share higher</span></div>
+                </div>
+                <div class="assumption-control">
+                  <label for="duration">Employment duration in months</label>
+                  <input id="duration" data-assumption-input type="range" min="3" max="12" value="6">
+                  <div class="control-meta"><span>Shorter persistence</span><span>Longer persistence</span></div>
+                </div>
+              </div>
+
+              <div class="mini-result" aria-live="polite">
+                <span>Scenario result</span>
+                <strong data-sroi-output>3.9x</strong>
+                <span>Confidence <b data-confidence-output>74%</b></span>
+              </div>
+            </section>
+
+            <section class="section" aria-labelledby="states-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="states-title">Required product states</h2>
+                  <p>The pilot defines how SROI Results behaves when evidence is not ready.</p>
+                </div>
+              </div>
+              <div class="state-grid">
+                <div class="state-card"><strong>Loading</strong><p>Show skeleton result, chart, and tasks without shifting layout.</p></div>
+                <div class="state-card"><strong>Empty</strong><p>No approved outcomes yet. Send user to Outcomes and Evidence.</p></div>
+                <div class="state-card"><strong>Error</strong><p>Calculation blocked by missing cost boundary or proxy version.</p></div>
+                <div class="state-card"><strong>Incomplete</strong><p>Draft result visible, publish actions disabled, gaps assigned.</p></div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="panel-stack" aria-label="Review and decision panels">
+            <section class="panel" aria-labelledby="assumptions-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="assumptions-title">Assumptions needing review</h2>
+                  <p>Every material assumption must show source, confidence, and effect.</p>
+                </div>
+              </div>
+              <ul class="task-list">
+                <li class="task">
+                  <strong>Transport barrier adjustment</strong>
+                  <span>High SROI effect. Rural completion gap remains unresolved.</span>
+                  <span class="status review">Needs evidence</span>
+                </li>
+                <li class="task">
+                  <strong>Six-month employment persistence</strong>
+                  <span>Follow-up sample covers 62% of sustained employment claim.</span>
+                  <span class="status estimated">Estimated</span>
+                </li>
+                <li class="task">
+                  <strong>Wage progression proxy</strong>
+                  <span>Approved local proxy, price year 2025.</span>
+                  <span class="status approved">Approved</span>
+                </li>
+              </ul>
+            </section>
+
+            <section class="panel" aria-labelledby="sdg-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="sdg-title">SDG target claims</h2>
+                  <p>Claims are limited by evidence level and human approval.</p>
+                </div>
+              </div>
+              <ul class="sdg-list">
+                <li class="sdg-item">
+                  <h3>Target 8.5 <span class="claim-level">Measured contribution</span></h3>
+                  <p>Employment outcome has approved indicator, geography, and participant evidence.</p>
+                </li>
+                <li class="sdg-item">
+                  <h3>Target 4.4 <span class="claim-level">Contributes to</span></h3>
+                  <p>Training completion supports skills pathway; outcome evidence is partial.</p>
+                </li>
+                <li class="sdg-item">
+                  <h3>Target 10.2 <span class="claim-level">Needs review</span></h3>
+                  <p>Equity claim requires review of rural access and transport barriers.</p>
+                </li>
+              </ul>
+            </section>
+
+            <section class="panel" id="decision" aria-labelledby="decision-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="decision-title">Decision package</h2>
+                  <p>Internal planning decision, not public reporting.</p>
+                </div>
+              </div>
+              <ul class="task-list">
+                <li class="task"><strong>Approve internal scenario</strong><span>Owner: impact advisor. Due: 12 July 2026.</span></li>
+                <li class="task"><strong>Assign evidence task</strong><span>Owner: program manager. Confirm rural transport barrier.</span></li>
+                <li class="task"><strong>Hold publication</strong><span>External claims disabled until assurance readiness improves.</span></li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+
+        <p class="footer-note">Prototype baseline generated from ImpactPulse Master Wireframe and Product Design Master v7, 6 July 2026.</p>
+      </main>
+    </div>
+
+    <section class="drawer" data-drawer aria-hidden="true" aria-labelledby="drawer-title" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <p class="project-kicker">Before approval</p>
+            <h2 id="drawer-title">Challenge this analysis</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-drawer aria-label="Close challenge panel">x</button>
+        </div>
+        <p>Use these questions before the result is approved, published, or used for a funding decision.</p>
+        <ol class="drawer-list">
+          <li>What evidence contradicts the central SROI estimate?</li>
+          <li>Which assumption most inflates the result?</li>
+          <li>Which affected group may be missing or underrepresented?</li>
+          <li>Are harms, trade-offs, or rural access barriers understated?</li>
+          <li>Does any SDG language exceed the approved evidence level?</li>
+          <li>Was the comparator or benchmark selected too favorably?</li>
+        </ol>
+        <button class="button primary" type="button">Create review task</button>
+      </div>
+    </section>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
+

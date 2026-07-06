@@ -1,0 +1,46 @@
+{
+  "generatedAt": "2026-07-06T18:40:35.746Z",
+  "routes": [
+    {
+      "name": "sroi-results",
+      "path": "/"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop-wide",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "name": "desktop",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "mobile-large",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "mobile-small",
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "screenshots": [
+    ".\\artifacts\\design-audit\\latest\\screenshots\\sroi-results-desktop-wide-1440x1000.png",
+    ".\\artifacts\\design-audit\\latest\\screenshots\\sroi-results-desktop-1280x800.png",
+    ".\\artifacts\\design-audit\\latest\\screenshots\\sroi-results-tablet-768x1024.png",
+    ".\\artifacts\\design-audit\\latest\\screenshots\\sroi-results-mobile-large-390x844.png",
+    ".\\artifacts\\design-audit\\latest\\screenshots\\sroi-results-mobile-small-360x800.png"
+  ],
+  "failures": [],
+  "warnings": [],
+  "result": "passed"
+}

@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light;
+
+  --color-page: #f7f8f5;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #eef3ee;
+  --color-surface-raised: #ffffff;
+
+  --color-text-strong: #14211d;
+  --color-text: #2c3934;
+  --color-text-muted: #5e6b66;
+  --color-text-inverse: #ffffff;
+
+  --color-border-subtle: #d7dfd7;
+  --color-border-strong: #9aa99f;
+
+  --color-brand-forest: #1c5b48;
+  --color-brand-leaf: #2f7d5c;
+  --color-brand-mist: #dcebe3;
+
+  --color-chart-social-value: #087f8c;
+  --color-chart-investment: #3867b7;
+  --color-chart-positive: #2f7d32;
+  --color-chart-negative: #b2403a;
+  --color-chart-gap: #a66a00;
+  --color-chart-uncertainty: #6f4bb5;
+
+  --color-status-observed: #1c5b48;
+  --color-status-derived: #3867b7;
+  --color-status-estimated: #a66a00;
+  --color-status-ai-suggested: #6f4bb5;
+  --color-status-approved: #2f7d32;
+  --color-status-needs-review: #a66a00;
+  --color-status-verified: #0f5132;
+  --color-status-risk: #b2403a;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: Charter, Georgia, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+
+  --line-tight: 1.15;
+  --line-body: 1.55;
+  --line-loose: 1.75;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --width-readable: 70ch;
+  --width-content: 1180px;
+  --width-wide: 1440px;
+  --width-sidebar: 17rem;
+  --width-panel: 24rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-pill: 999px;
+
+  --border-subtle: 1px solid var(--color-border-subtle);
+  --border-strong: 1px solid var(--color-border-strong);
+
+  --shadow-sm: 0 1px 2px rgba(20, 33, 29, 0.08);
+  --shadow-md: 0 12px 32px rgba(20, 33, 29, 0.12);
+
+  --motion-fast: 140ms ease;
+  --motion-standard: 220ms ease;
+  --motion-slow: 420ms ease;
+
+  --breakpoint-mobile: 390px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-wide: 1440px;
+}
+

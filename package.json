@@ -1,0 +1,18 @@
+{
+  "name": "impactpulse-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "design:audit": "node scripts/design-audit.mjs",
+    "test:visual": "node scripts/design-audit.mjs --visual-only",
+    "test:accessibility": "node scripts/design-audit.mjs --accessibility-only",
+    "quality": "node scripts/design-audit.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}
+
