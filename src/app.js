@@ -4,6 +4,9 @@ const closeDrawerButton = document.querySelector("[data-close-drawer]");
 const sroiOutput = document.querySelector("[data-sroi-output]");
 const confidenceOutput = document.querySelector("[data-confidence-output]");
 const assumptionInputs = document.querySelectorAll("[data-assumption-input]");
+const filterButtons = document.querySelectorAll("[data-filter]");
+const filterTargets = document.querySelectorAll("[data-filter-target]");
+const filterNote = document.querySelector("[data-filter-note]");
 let lastFocusedElement = null;
 
 function openDrawer() {
@@ -60,3 +63,32 @@ assumptionInputs.forEach((input) => {
 
 updateScenario();
 
+function updateClaimFilter(filter) {
+  let visibleCount = 0;
+
+  filterTargets.forEach((row) => {
+    const isVisible = filter === "all" || row.dataset.filterTarget === filter;
+    row.hidden = !isVisible;
+    if (isVisible) {
+      visibleCount += 1;
+    }
+  });
+
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === filter;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  if (filterNote) {
+    const label =
+      filter === "all"
+        ? "all extracted claims"
+        : `${visibleCount} ${filter.replace("-", " ")} claim${visibleCount === 1 ? "" : "s"}`;
+    filterNote.textContent = `Showing ${label}.`;
+  }
+}
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => updateClaimFilter(button.dataset.filter || "all"));
+});

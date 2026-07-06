@@ -1,6 +1,6 @@
 # ImpactPulse Prototype
 
-ImpactPulse is a social-impact measurement and SROI decision platform. This prototype starts with the smallest useful foundation: product governance, design-system tokens, a representative SROI Results page, and automated visual/accessibility review.
+ImpactPulse is a social-impact measurement and SROI decision platform. This prototype starts with the smallest useful foundation: product governance, design-system tokens, representative SROI Results and Evidence Review Queue pages, and automated visual/accessibility review.
 
 ## Current Stack
 
@@ -18,7 +18,10 @@ pnpm install
 pnpm start
 ```
 
-Then open `http://127.0.0.1:4173`.
+Then open:
+
+- `http://127.0.0.1:4173` for SROI Results
+- `http://127.0.0.1:4173/evidence/` for Evidence Review Queue
 
 ## Review Workflows
 
@@ -42,4 +45,3 @@ Every page should help answer at least one of:
 5. What social value may have been created?
 6. How confident should we be?
 7. What decision should happen next?
-

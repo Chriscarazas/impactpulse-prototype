@@ -61,11 +61,36 @@ Required states:
 - Error: calculation cannot run, showing blocking missing inputs.
 - Incomplete data: result visible only as draft, with evidence gaps and no publish action.
 
-## Next Page Candidate: Evidence Review Queue
+## Evidence Review Queue
 
-Reason:
+Route: `/evidence/`
+
+Primary role:
+
+- M&E specialist, impact analyst, SROI practitioner, finance reviewer
+
+Primary questions:
+
+- What evidence do we have?
+- Who experiences the change?
+- What assumptions are we making?
+- How confident should we be?
+- What decision should happen next?
+
+Required content:
 
 - It is the upstream source of trust for SROI Results.
 - It exercises source provenance, data quality, conflicts, evidence gaps, review states, AI suggestions, and assignment flows.
-- It should become the next pilot after the SROI Results page because defects in evidence review weaken every downstream claim.
+- Source inventory with provenance, permission, freshness, quality, and supported claims.
+- Extracted claim review across reach, costs, outcomes, indicators, proxies, assumptions, SDG mappings, and benchmark inputs.
+- Evidence quality statuses: observed, derived, estimated, AI suggested, human approved, independently verified, needs review, and conflict.
+- Gap prioritization by materiality, SROI effect, confidence effect, decision value, effort, feasibility, ethical risk, and participant burden.
+- Conflict resolution showing disagreeing sources, affected calculation, required reviewer, and decision path.
+- Downstream impact view showing affected SROI results, SDG claims, report sections, and assurance readiness.
 
+Required states:
+
+- Loading: source, claim, and priority regions reserve layout while extraction runs.
+- Empty: no sources connected, with upload and sample-workspace paths.
+- Error: ingestion failed, with retry and preserved upload status.
+- Incomplete data: claims can be reviewed, but affected results and reports remain draft.

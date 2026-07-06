@@ -11,7 +11,10 @@ const accessibilityOnly = args.has("--accessibility-only");
 const shouldCaptureScreenshots = !accessibilityOnly;
 const shouldRunAccessibility = !visualOnly;
 
-const routes = [{ name: "sroi-results", path: "/" }];
+const routes = [
+  { name: "sroi-results", path: "/" },
+  { name: "evidence-review", path: "/evidence/" }
+];
 const viewports = [
   { name: "desktop-wide", width: 1440, height: 1000 },
   { name: "desktop", width: 1280, height: 800 },

@@ -44,3 +44,12 @@ Reason:
 
 The first pass needs an enforceable design-review loop more than a component library. No paid dependency or UI kit is justified yet.
 
+## 2026-07-06: Add Evidence Review Queue as Second Page
+
+Decision:
+
+Build `/evidence/` before adding another results or dashboard page.
+
+Reason:
+
+Evidence review is the trust layer for SROI results, assumptions, SDG target claims, benchmark eligibility, reports, and assurance readiness. The page makes source quality, extracted claims, unresolved gaps, conflicts, and downstream effects visible before users approve or publish analytical outputs.

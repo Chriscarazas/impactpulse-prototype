@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ImpactPulse Evidence Review Queue</title>
+    <meta name="description" content="ImpactPulse prototype Evidence Review Queue for source lineage, extracted claims, evidence gaps, conflicts, and SROI impact.">
+    <link rel="stylesheet" href="../src/styles/app.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to evidence review queue</a>
+
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="ImpactPulse home">
+        <span class="brand-mark" aria-hidden="true">IP</span>
+        <span>ImpactPulse</span>
+      </a>
+
+      <nav class="global-nav" aria-label="Global">
+        <a href="../">Projects</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="./" aria-current="page">Evidence</a>
+        <a href="#insights">Insights</a>
+        <a href="#reports">Reports</a>
+        <a href="#govern">Govern</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="button secondary" type="button" data-open-drawer>Review lineage</button>
+        <button class="button primary" type="button">Assign evidence tasks</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="side-rail" aria-label="Guided SROI process">
+        <p class="rail-title">Guided SROI</p>
+        <ol class="step-list">
+          <li><a href="#scope"><span class="step-index">1</span><span>Scope</span></a></li>
+          <li><a href="#people"><span class="step-index">2</span><span>People</span></a></li>
+          <li><a href="#outcomes"><span class="step-index">3</span><span>Outcomes</span></a></li>
+          <li><a href="#main" aria-current="step"><span class="step-index">4</span><span>Evidence</span></a></li>
+          <li><a href="#valuation"><span class="step-index">5</span><span>Valuation</span></a></li>
+          <li><a href="#adjustments"><span class="step-index">6</span><span>Adjustments</span></a></li>
+          <li><a href="../"><span class="step-index">7</span><span>SROI</span></a></li>
+          <li><a href="#sensitivity"><span class="step-index">8</span><span>Sensitivity</span></a></li>
+          <li><a href="#decision"><span class="step-index">9</span><span>Decision</span></a></li>
+          <li><a href="#report"><span class="step-index">10</span><span>Report</span></a></li>
+        </ol>
+      </aside>
+
+      <main class="main" id="main">
+        <section class="project-header" aria-labelledby="page-title">
+          <div class="project-title-row">
+            <div>
+              <p class="project-kicker">Evidence Review Queue</p>
+              <h1 id="page-title">Workforce Pathways evidence</h1>
+              <p class="lead">Review the sources and extracted claims that feed outcomes, assumptions, SDG mappings, and the 3.9x SROI result.</p>
+            </div>
+            <a class="button ghost" href="../">Return to SROI results</a>
+          </div>
+
+          <dl class="meta-grid" aria-label="Evidence review summary">
+            <div class="meta-item">
+              <dt class="meta-label">Sources</dt>
+              <dd class="meta-value">7 connected</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Claims</dt>
+              <dd class="meta-value">18 extracted</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Blocking gaps</dt>
+              <dd class="meta-value">3 unresolved</dd>
+            </div>
+            <div class="meta-item">
+              <dt class="meta-label">Coverage</dt>
+              <dd class="meta-value">74% reviewed</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="section" aria-labelledby="source-title">
+          <div class="section-header">
+            <div>
+              <h2 id="source-title">Connected evidence sources</h2>
+              <p>Each source carries provenance, permission, freshness, quality, and the claims it can support.</p>
+            </div>
+            <span class="status review">2 need attention</span>
+          </div>
+
+          <div class="source-grid">
+            <article class="source-card">
+              <div>
+                <h3>Program proposal</h3>
+                <p>Original intervention design, target population, intended outcomes, and delivery model.</p>
+              </div>
+              <dl class="source-meta">
+                <div><dt>Status</dt><dd><span class="status approved">Human approved</span></dd></div>
+                <div><dt>Used for</dt><dd>Scope, Theory of Change, SDG suggestions</dd></div>
+              </dl>
+            </article>
+            <article class="source-card">
+              <div>
+                <h3>FY 2026 budget</h3>
+                <p>Investment boundary, staff time, participant support, and site operating costs.</p>
+              </div>
+              <dl class="source-meta">
+                <div><dt>Status</dt><dd><span class="status verified">Observed</span></dd></div>
+                <div><dt>Used for</dt><dd>Investment, NPV, payback</dd></div>
+              </dl>
+            </article>
+            <article class="source-card">
+              <div>
+                <h3>Monitoring dataset</h3>
+                <p>Enrollment, completion, employment entry, and six-month follow-up records.</p>
+              </div>
+              <dl class="source-meta">
+                <div><dt>Status</dt><dd><span class="status estimated">Partial sample</span></dd></div>
+                <div><dt>Used for</dt><dd>Reach, outcomes, persistence</dd></div>
+              </dl>
+            </article>
+            <article class="source-card">
+              <div>
+                <h3>Stakeholder interviews</h3>
+                <p>Participant barriers, missing voices, rural transport constraints, and unintended effects.</p>
+              </div>
+              <dl class="source-meta">
+                <div><dt>Status</dt><dd><span class="status review">Needs review</span></dd></div>
+                <div><dt>Used for</dt><dd>Materiality, harms, equity</dd></div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <section class="section" aria-labelledby="claim-title">
+            <div class="section-header">
+              <div>
+                <h2 id="claim-title">Extracted claim review</h2>
+                <p>Accept, edit, reject, or assign claims before they can shape SROI, SDG, benchmark, or report language.</p>
+              </div>
+            </div>
+
+            <div class="evidence-toolbar" aria-label="Evidence filters">
+              <div class="segmented-control" role="group" aria-label="Filter claims by status">
+                <button class="segment is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+                <button class="segment" type="button" data-filter="needs-review" aria-pressed="false">Needs review</button>
+                <button class="segment" type="button" data-filter="approved" aria-pressed="false">Approved</button>
+                <button class="segment" type="button" data-filter="conflict" aria-pressed="false">Conflict</button>
+              </div>
+              <p class="filter-note" aria-live="polite" data-filter-note>Showing all extracted claims.</p>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="claim-table">
+                <caption>Extracted claims and downstream effects</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Claim</th>
+                    <th scope="col">Source</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Affects</th>
+                    <th scope="col">Review action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-filter-target="approved">
+                    <td><strong>820 enrolled participants</strong><span>Unique records after duplicate check.</span></td>
+                    <td>Monitoring dataset</td>
+                    <td><span class="status approved">Approved</span></td>
+                    <td>Reach, cost per participant</td>
+                    <td><button class="button secondary compact" type="button" data-open-drawer>Lineage</button></td>
+                  </tr>
+                  <tr data-filter-target="approved">
+                    <td><strong>704 completed training</strong><span>Completion counted after attendance and assessment threshold.</span></td>
+                    <td>Monitoring dataset</td>
+                    <td><span class="status approved">Approved</span></td>
+                    <td>Outcome rate, SDG 4.4</td>
+                    <td><button class="button secondary compact" type="button" data-open-drawer>Lineage</button></td>
+                  </tr>
+                  <tr data-filter-target="needs-review">
+                    <td><strong>351 sustained employment outcomes</strong><span>Follow-up coverage is 62%; rural response rate is lower.</span></td>
+                    <td>Monitoring dataset</td>
+                    <td><span class="status review">Needs review</span></td>
+                    <td>SROI range, confidence, report disclosure</td>
+                    <td><button class="button primary compact" type="button">Assign</button></td>
+                  </tr>
+                  <tr data-filter-target="conflict">
+                    <td><strong>$1.2M investment boundary</strong><span>Finance export excludes donated facilities; proposal includes them.</span></td>
+                    <td>Budget and proposal</td>
+                    <td><span class="status risk">Conflict</span></td>
+                    <td>Central SROI, NPV, benchmark comparability</td>
+                    <td><button class="button primary compact" type="button">Resolve</button></td>
+                  </tr>
+                  <tr data-filter-target="needs-review">
+                    <td><strong>Transport is a material rural barrier</strong><span>Interview evidence indicates lower completion, but sample is small.</span></td>
+                    <td>Stakeholder interviews</td>
+                    <td><span class="status review">Needs review</span></td>
+                    <td>Equity, SDG 10.2, next action</td>
+                    <td><button class="button primary compact" type="button">Request</button></td>
+                  </tr>
+                  <tr data-filter-target="approved">
+                    <td><strong>Wage progression proxy</strong><span>Local wage proxy approved for 2025 price year.</span></td>
+                    <td>Valuation library</td>
+                    <td><span class="status verified">Verified source</span></td>
+                    <td>Gross value, social value bridge</td>
+                    <td><button class="button secondary compact" type="button" data-open-drawer>Lineage</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="panel-stack" aria-label="Evidence priorities">
+            <section class="panel" aria-labelledby="gap-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="gap-title">Highest-value gaps</h2>
+                  <p>Ranked by materiality, SROI effect, confidence effect, and decision value.</p>
+                </div>
+              </div>
+              <ol class="priority-list">
+                <li>
+                  <span class="priority-rank">1</span>
+                  <div>
+                    <strong>Six-month employment follow-up</strong>
+                    <p>Could move SROI from 3.9x to 3.2x and lower confidence by 12 points.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="priority-rank">2</span>
+                  <div>
+                    <strong>Transport-barrier validation</strong>
+                    <p>Required before equity claim and SDG 10.2 language can be approved.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="priority-rank">3</span>
+                  <div>
+                    <strong>Investment boundary decision</strong>
+                    <p>Resolve donated facilities treatment before external comparison.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="panel" aria-labelledby="conflict-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="conflict-title">Conflict requiring decision</h2>
+                  <p>Two sources disagree on whether in-kind facilities belong in the investment boundary.</p>
+                </div>
+              </div>
+              <div class="conflict-card">
+                <dl>
+                  <div><dt>Budget export</dt><dd>$1.2M cash investment</dd></div>
+                  <div><dt>Proposal appendix</dt><dd>$1.36M including facilities</dd></div>
+                  <div><dt>Required reviewer</dt><dd>Finance user and SROI practitioner</dd></div>
+                </dl>
+                <button class="button primary" type="button">Open resolution</button>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="impact-title">
+              <div class="section-header">
+                <div>
+                  <h2 id="impact-title">Downstream impact</h2>
+                  <p>Current unresolved items affect these outputs.</p>
+                </div>
+              </div>
+              <ul class="task-list">
+                <li class="task"><strong>SROI Results</strong><span>Range, confidence, and recommendation remain draft.</span></li>
+                <li class="task"><strong>SDG claims</strong><span>Target 10.2 cannot move past Needs Review.</span></li>
+                <li class="task"><strong>Assurance readiness</strong><span>Principles 1, 4, 5, and 6 have open gaps.</span></li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+
+        <section class="section" aria-labelledby="states-title">
+          <div class="section-header">
+            <div>
+              <h2 id="states-title">Evidence queue states</h2>
+              <p>The review queue defines its non-happy paths before the workflow expands.</p>
+            </div>
+          </div>
+          <div class="state-grid">
+            <div class="state-card"><strong>Loading</strong><p>Reserve source, claim, and priority regions while extraction runs.</p></div>
+            <div class="state-card"><strong>Empty</strong><p>No sources connected. Prompt upload or use a sample workspace.</p></div>
+            <div class="state-card"><strong>Error</strong><p>Source failed ingestion. Preserve upload and show retry path.</p></div>
+            <div class="state-card"><strong>Incomplete</strong><p>Claims can be reviewed, but affected reports stay draft.</p></div>
+          </div>
+        </section>
+
+        <p class="footer-note">Evidence review is the trust layer for every SROI result, SDG claim, benchmark, and assurance package.</p>
+      </main>
+    </div>
+
+    <section class="drawer" data-drawer aria-hidden="true" aria-labelledby="drawer-title" role="dialog" aria-modal="true">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <p class="project-kicker">Evidence lineage</p>
+            <h2 id="drawer-title">Claim trace</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-drawer aria-label="Close lineage panel">x</button>
+        </div>
+        <p>This claim is visible only as a draft until source quality, reviewer, and downstream effects are approved.</p>
+        <dl class="lineage-list">
+          <div><dt>Original source</dt><dd>Monitoring dataset, row-level participant records</dd></div>
+          <div><dt>Transformation</dt><dd>Duplicate check, completion threshold, six-month follow-up match</dd></div>
+          <div><dt>Affected result</dt><dd>Reach, employment outcome, central SROI, confidence, report disclosure</dd></div>
+          <div><dt>Approval needed</dt><dd>M&E specialist and SROI practitioner</dd></div>
+        </dl>
+        <button class="button primary" type="button">Create evidence task</button>
+      </div>
+    </section>
+
+    <script type="module" src="../src/app.js"></script>
+  </body>
+</html>
