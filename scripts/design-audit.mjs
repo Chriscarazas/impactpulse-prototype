@@ -10,6 +10,7 @@ const visualOnly = args.has("--visual-only");
 const accessibilityOnly = args.has("--accessibility-only");
 const shouldCaptureScreenshots = !accessibilityOnly;
 const shouldRunAccessibility = !visualOnly;
+process.env.IMPACTPULSE_FORCE_DEMO_MODE = "1";
 
 const routes = [
   { name: "sroi-results", path: "/" },

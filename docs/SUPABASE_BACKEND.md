@@ -20,11 +20,13 @@ This avoids a premature framework or build-system migration while proving the da
 Create `.env.local` from `.env.example`:
 
 ```bash
-SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_ANON_KEY=your-public-anon-key
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-public-publishable-key
 SUPABASE_SCHEMA=public
 SUPABASE_DEMO_PROJECT_ID=00000000-0000-4000-8000-000000000101
 ```
+
+The static server also accepts `SUPABASE_URL` / `SUPABASE_ANON_KEY` and Vite-style aliases. The `NEXT_PUBLIC_...` names are supported so the project can use Supabase's current setup values without migrating to Next.js yet.
 
 Never commit `.env.local`, the service-role key, database passwords, or access tokens.
 
@@ -95,7 +97,7 @@ When Supabase is not configured:
 
 When Supabase is configured:
 
-- `/config.js` exposes only `SUPABASE_URL`, `SUPABASE_ANON_KEY`, schema, and demo project ID.
+- `/config.js` exposes only the Supabase URL, public publishable/anon key, schema, and demo project ID.
 - `/outcomes/` attempts to read `outcomes`, `indicators`, `stakeholders`, and `review_tasks`.
 - `/quick-start/` can request a Supabase Auth magic link.
 - Signed-in users can upload files to `impact-evidence` when RLS confirms their organization role.
@@ -120,6 +122,18 @@ The browser upload flow uses:
 4. `evidence_sources` metadata insert.
 
 If the user is not signed in, the UI keeps selected files in demo queue mode and does not attempt Storage writes.
+
+## Package Guidance
+
+Supabase's generated setup snippet for Next.js recommends:
+
+```bash
+npm install @supabase/supabase-js @supabase/ssr
+```
+
+This prototype is not a Next.js app yet. It has no `app/` directory, middleware layer, server components, or bundler that can import npm packages in browser modules. For now, `src/backend/supabase.js` uses Supabase's Auth, Storage, and PostgREST endpoints directly.
+
+Do not add `@supabase/ssr` or Next middleware files until the repository intentionally migrates to Next.js or another bundled framework. At that point, replace the narrow REST adapter with official Supabase client helpers and document the architecture decision.
 
 ## Next Backend Decisions
 

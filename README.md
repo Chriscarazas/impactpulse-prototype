@@ -28,7 +28,7 @@ Then open:
 
 ## Supabase
 
-Copy `.env.example` to `.env.local` and add your Supabase project URL and public anon key. Do not commit real secrets.
+Copy `.env.example` to `.env.local` and add your Supabase project URL and public publishable key. The static server accepts Supabase's `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` names. Do not commit real secrets.
 
 The schema lives in `supabase/migrations/`, demo seed data lives in `supabase/seed.sql`, and setup details live in `docs/SUPABASE_BACKEND.md`.
 

@@ -119,3 +119,17 @@ Evidence files are the first durable user-owned objects ImpactPulse needs. Uploa
 Consequence:
 
 The app now has a private `impact-evidence` bucket, organization-scoped Storage policies, magic-link request handling, session capture, and evidence metadata creation. Organization onboarding, membership invitations, and richer write workflows remain future work.
+
+## 2026-07-07: Adapt Supabase Setup Without Adding Next.js SSR
+
+Decision:
+
+Support Supabase's `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` environment names, but do not install `@supabase/ssr` or add Next.js middleware files yet.
+
+Reason:
+
+The repository is still a framework-free static prototype with no Next.js `app/` directory, server components, middleware runtime, or bundler. Installing SSR helpers now would add unused package surface and confuse the architecture.
+
+Consequence:
+
+The local server can use Supabase's current project credentials through `.env.local`, while the app keeps the direct REST/Auth/Storage adapter until a deliberate framework migration happens.

@@ -87,8 +87,21 @@ function loadRuntimeEnv() {
 
 function createPublicConfig() {
   const env = loadRuntimeEnv();
-  const supabaseUrl = env.SUPABASE_URL || env.VITE_SUPABASE_URL || "";
-  const supabaseAnonKey = env.SUPABASE_ANON_KEY || env.VITE_SUPABASE_ANON_KEY || "";
+  const forceDemoMode = env.IMPACTPULSE_FORCE_DEMO_MODE === "1";
+  const supabaseUrl =
+    forceDemoMode
+      ? ""
+      : env.SUPABASE_URL || env.VITE_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const supabaseAnonKey =
+    forceDemoMode
+      ? ""
+      : env.SUPABASE_ANON_KEY ||
+        env.SUPABASE_PUBLISHABLE_KEY ||
+        env.VITE_SUPABASE_ANON_KEY ||
+        env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+        env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+        env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+        "";
 
   return {
     supabaseUrl,

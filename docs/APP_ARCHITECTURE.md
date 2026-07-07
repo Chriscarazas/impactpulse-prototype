@@ -48,6 +48,8 @@ Runtime config is served from `/config.js` by `scripts/serve.mjs`. Only the Supa
 
 The only current browser write path is signed-in evidence intake from `/quick-start/`: private Storage upload followed by an `evidence_sources` metadata insert. Broader writes wait for organization onboarding and reviewer role flows.
 
+Supabase's Next.js SSR helpers are not installed yet because this repository is not a Next.js app. Add `@supabase/supabase-js` and `@supabase/ssr` only when the project adopts a bundled framework or server middleware layer.
+
 ## When To Add a Framework
 
 Add React, Vue, Svelte, or another framework only when the prototype needs state complexity, component composition, data fetching, authentication flows, or interaction depth that the current route renderer can no longer handle cleanly. Document the decision in `docs/DESIGN_DECISIONS.md`.
