@@ -77,3 +77,31 @@ Make `/data-quality/` the next full product screen after Evidence Review Queue.
 Reason:
 
 ImpactPulse depends on trust gates before results, SDG claims, reports, benchmarks, and assurance packages can be used. Data Quality turns evidence gaps and conflicts into sufficiency scores, treatments, owners, and allowed/blocked product claims.
+
+## 2026-07-07: Adopt Supabase as the Backend Spine
+
+Decision:
+
+Use Supabase Postgres, Auth, Storage, and Row Level Security as the planned backend foundation for ImpactPulse.
+
+Reason:
+
+The product requires organization-scoped workspaces, evidence uploads, reviewer roles, transparent lineage, audit trails, SROI calculation records, report snapshots, and tenant-safe collaboration. Supabase gives the prototype a real Postgres/RLS path without forcing a custom backend before the domain model stabilizes.
+
+Consequence:
+
+The repository now includes an RLS-first Supabase migration, deterministic seed data, env-safe local config, and a narrow read adapter. Browser writes remain disabled until authentication, membership onboarding, and reviewer workflows are designed.
+
+## 2026-07-07: Hydrate Outcomes Before Enabling Writes
+
+Decision:
+
+Make `/outcomes/` the first Supabase-aware page, using demo data first and then read-only Supabase hydration when configured.
+
+Reason:
+
+Outcomes sit upstream of valuation, SROI, SDG claims, reports, and assurance. Proving the outcome model against a real backend gives the product a useful data contract while preserving the deterministic prototype review loop.
+
+Consequence:
+
+The current static renderer stays in place. A frontend framework or `@supabase/supabase-js` should be introduced only when auth, writes, subscriptions, or larger data-fetching complexity justify the build-system change.

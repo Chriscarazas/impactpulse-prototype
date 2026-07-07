@@ -51,3 +51,23 @@ Extract components only after patterns are proven across at least two pages:
 - Assumption row
 - Accessible chart block
 - Review task list
+
+## Priority 7: Supabase Backend Foundation
+
+- Apply the RLS-first Supabase schema.
+- Seed the Workforce Pathways demo records.
+- Keep browser writes disabled until auth and memberships exist.
+- Use demo fallback data whenever Supabase is not configured.
+- Hydrate prototype pages only after the first deterministic render.
+
+## Priority 8: Outcomes Workspace
+
+Build `/outcomes/` as the first backend-aware workspace. It should connect stakeholders, outcomes, indicators, evidence readiness, valuation readiness, materiality, validation gaps, review tasks, and backend state.
+
+## Priority 9: Auth and Evidence Storage
+
+- Add Supabase Auth and organization onboarding.
+- Create membership invitation and role management flows.
+- Add evidence file storage with organization-prefixed paths.
+- Connect upload metadata to `evidence_sources`.
+- Preserve audit events for evidence, assumptions, approvals, and report snapshots.

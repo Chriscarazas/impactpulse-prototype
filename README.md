@@ -7,6 +7,7 @@ ImpactPulse is a social-impact measurement and SROI decision platform. This prot
 - Route-driven static HTML, CSS, and JavaScript
 - CSS custom properties for design tokens
 - Node static server for local preview
+- Optional Supabase backend foundation with RLS-first schema
 - Playwright-based design audit for screenshots, responsive checks, and accessibility checks
 
 No UI framework or paid dependency has been introduced. This keeps the first pass reviewable while the product architecture is still taking shape.
@@ -23,6 +24,15 @@ Then open:
 - `http://127.0.0.1:4173` for SROI Results
 - `http://127.0.0.1:4173/quick-start/` for Upload to First Insight
 - `http://127.0.0.1:4173/evidence/` for Evidence Review Queue
+- `http://127.0.0.1:4173/outcomes/` for the backend-aware Outcomes workspace
+
+## Supabase
+
+Copy `.env.example` to `.env.local` and add your Supabase project URL and public anon key. Do not commit real secrets.
+
+The schema lives in `supabase/migrations/`, demo seed data lives in `supabase/seed.sql`, and setup details live in `docs/SUPABASE_BACKEND.md`.
+
+The prototype still works without Supabase. When configured, `/outcomes/` attempts to read Supabase outcomes, indicators, stakeholders, and review tasks through RLS-safe anon-key requests.
 
 ## Review Workflows
 

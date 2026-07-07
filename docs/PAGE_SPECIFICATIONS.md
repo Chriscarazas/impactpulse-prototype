@@ -166,3 +166,37 @@ Required states:
 - Empty: no connected evidence, with upload and sample workspace entry points.
 - Error: profiling failed, with retry and source-preservation path.
 - Incomplete data: evidence can inform internal planning, but publication and assurance are blocked.
+
+## Outcomes and Indicators
+
+Route: `/outcomes/`
+
+Primary role:
+
+- Impact analyst, evaluator, program manager, SROI practitioner, funder reviewer
+
+Primary questions:
+
+- What are we trying to change?
+- Who experiences the change?
+- What evidence do we have?
+- What assumptions are we making?
+- What social value may have been created?
+- How confident should we be?
+- What decision should happen next?
+
+Required content:
+
+- Outcome model canvas connecting inputs, people affected, material outcomes, evidence, and value readiness.
+- Outcome register showing stakeholder, indicator, evidence status, valuation readiness, and decision effect.
+- Indicator mapping with observed value, unit, collection cadence, and evidence source.
+- Stakeholder validation view showing represented, underrepresented, and intentionally excluded groups.
+- Review queue ranked by materiality, SROI effect, confidence effect, and participant burden.
+- Backend status showing whether rows are loaded from Supabase or demo fallback.
+
+Required states:
+
+- Loading: show demo rows first, then announce Supabase hydration status.
+- Empty: keep model guidance visible and explain which Supabase project has no rows.
+- Error: preserve demo rows and show the failed backend read state.
+- Incomplete data: block valuation and publication for outcomes without sufficient evidence or stakeholder validation.

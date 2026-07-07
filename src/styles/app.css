@@ -1005,6 +1005,135 @@ td {
   color: var(--color-text-strong);
 }
 
+.outcome-map {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.outcomes-workspace-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.outcomes-workspace-grid .panel-stack {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.outcome-step {
+  background: var(--color-surface-subtle);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.outcome-step span,
+.validation-item span {
+  color: var(--color-brand-forest);
+  font-size: var(--text-xs);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.outcome-step p,
+.validation-item p {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.outcome-table {
+  min-width: 58rem;
+  table-layout: fixed;
+}
+
+.outcome-table th:first-child,
+.outcome-table td:first-child {
+  width: 25%;
+}
+
+.outcome-table th:nth-child(2),
+.outcome-table td:nth-child(2),
+.outcome-table th:nth-child(3),
+.outcome-table td:nth-child(3) {
+  width: 17%;
+}
+
+.outcome-table th:nth-child(4),
+.outcome-table td:nth-child(4),
+.outcome-table th:nth-child(5),
+.outcome-table td:nth-child(5) {
+  width: 12%;
+}
+
+.outcome-table th:last-child,
+.outcome-table td:last-child {
+  width: 17%;
+}
+
+.outcome-table td strong {
+  color: var(--color-text-strong);
+  display: block;
+}
+
+.outcome-table td span:not(.status) {
+  color: var(--color-text-muted);
+  display: block;
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+.backend-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.backend-list div {
+  border-bottom: var(--border-subtle);
+  display: grid;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+}
+
+.backend-list div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.backend-list dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.backend-list dd {
+  color: var(--color-text-strong);
+  font-weight: 700;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.validation-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.validation-item {
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.validation-item strong {
+  color: var(--color-text-strong);
+}
+
 .quality-summary-grid {
   display: grid;
   gap: var(--space-4);
@@ -1156,6 +1285,8 @@ td {
   .insight-grid,
   .app-map-grid,
   .option-grid,
+  .outcome-map,
+  .validation-grid,
   .quality-summary-grid,
   .treatment-timeline {
     grid-template-columns: 1fr;
@@ -1163,6 +1294,10 @@ td {
 
   .side-rail {
     position: static;
+  }
+
+  .outcomes-workspace-grid .panel-stack {
+    grid-template-columns: 1fr;
   }
 
   .step-list {

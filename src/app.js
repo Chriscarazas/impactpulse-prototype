@@ -1,4 +1,8 @@
+import { getBackendStatus, loadOutcomesWorkspace } from "./backend/supabase.js";
+
 const demoProject = {
+  id: "00000000-0000-4000-8000-000000000101",
+  organizationId: "00000000-0000-4000-8000-000000000001",
   name: "Workforce Pathways 2026",
   period: "FY 2026 forecast",
   location: "3 sites, Midwest US",
@@ -11,6 +15,136 @@ const demoProject = {
   coverage: "74%",
   confidence: "Moderate"
 };
+
+const demoStakeholders = [
+  {
+    id: "00000000-0000-4000-8000-000000000201",
+    name: "Adult job seekers",
+    segment: "Participants",
+    estimated_count: 820,
+    inclusion_note: "Rural participants need additional validation before equity claims are approved."
+  },
+  {
+    id: "00000000-0000-4000-8000-000000000202",
+    name: "Local employers",
+    segment: "Hiring partners",
+    estimated_count: 46,
+    inclusion_note: "Employer benefit is supporting context, not counted as primary social value yet."
+  }
+];
+
+const demoOutcomes = [
+  {
+    id: "00000000-0000-4000-8000-000000000401",
+    stakeholder_id: "00000000-0000-4000-8000-000000000201",
+    name: "Sustained employment",
+    description: "Participants remain employed six months after completing training.",
+    change_type: "positive",
+    materiality_score: 92,
+    evidence_status: "needs_review",
+    valuation_readiness: "needs_review",
+    decision_note: "Collect missing follow-up before public SROI reporting.",
+    sort_order: 1
+  },
+  {
+    id: "00000000-0000-4000-8000-000000000402",
+    stakeholder_id: "00000000-0000-4000-8000-000000000201",
+    name: "Wage progression",
+    description: "Participants increase hourly wages after placement.",
+    change_type: "positive",
+    materiality_score: 78,
+    evidence_status: "approved",
+    valuation_readiness: "approved",
+    decision_note: "Use approved local wage proxy for central case.",
+    sort_order: 2
+  },
+  {
+    id: "00000000-0000-4000-8000-000000000403",
+    stakeholder_id: "00000000-0000-4000-8000-000000000201",
+    name: "Reduced emergency support reliance",
+    description: "Participants need fewer short-term emergency supports after stable employment.",
+    change_type: "positive",
+    materiality_score: 63,
+    evidence_status: "estimated",
+    valuation_readiness: "draft",
+    decision_note: "Keep as draft until source strength improves.",
+    sort_order: 3
+  },
+  {
+    id: "00000000-0000-4000-8000-000000000404",
+    stakeholder_id: "00000000-0000-4000-8000-000000000201",
+    name: "Transport burden for rural participants",
+    description: "Program participation may increase travel time and cost for some rural participants.",
+    change_type: "negative",
+    materiality_score: 71,
+    evidence_status: "needs_review",
+    valuation_readiness: "blocked",
+    decision_note: "Validate rural sample before equity or SDG 10.2 claim language.",
+    sort_order: 4
+  }
+];
+
+const demoIndicators = [
+  {
+    outcome_id: "00000000-0000-4000-8000-000000000401",
+    name: "Participants employed at six months",
+    unit: "participants",
+    observed_value: 351,
+    target_value: 410,
+    collection_frequency: "six-month follow-up"
+  },
+  {
+    outcome_id: "00000000-0000-4000-8000-000000000402",
+    name: "Average hourly wage lift",
+    unit: "USD per hour",
+    observed_value: 2.9,
+    target_value: 3.25,
+    collection_frequency: "placement review"
+  },
+  {
+    outcome_id: "00000000-0000-4000-8000-000000000403",
+    name: "Emergency supports avoided",
+    unit: "cases",
+    observed_value: 84,
+    target_value: 120,
+    collection_frequency: "quarterly review"
+  },
+  {
+    outcome_id: "00000000-0000-4000-8000-000000000404",
+    name: "Rural participants reporting transport barrier",
+    unit: "percent",
+    observed_value: 31,
+    target_value: 20,
+    collection_frequency: "stakeholder interview round"
+  }
+];
+
+const demoOutcomeTasks = [
+  {
+    title: "Complete six-month follow-up",
+    task_type: "collection",
+    priority: 1,
+    status: "needs_review",
+    due_on: "2026-07-12",
+    affected_area: "Sustained employment"
+  },
+  {
+    title: "Validate rural transport barrier",
+    task_type: "stakeholder_validation",
+    priority: 2,
+    status: "needs_review",
+    due_on: "2026-07-16",
+    affected_area: "Transport burden"
+  },
+  {
+    title: "Confirm emergency support attribution",
+    task_type: "method_review",
+    priority: 3,
+    status: "draft",
+    due_on: "2026-07-19",
+    affected_area: "Reduced emergency support reliance"
+  }
+];
 
 const sroiSteps = [
   "Scope",
@@ -76,6 +210,7 @@ const routeDefinitions = [
     activeStep: 3,
     lead: "Define material outcomes, affected groups, indicators, risks, negative effects, and evidence requirements.",
     action: "Review outcomes",
+    view: "outcomes",
     capabilities: ["Theory of Change", "Outcome register", "Indicator mapping", "Materiality review"],
     nextBuild: "Connect every outcome to evidence, stakeholder validation, and valuation readiness."
   },
@@ -180,8 +315,67 @@ function routeHref(path) {
   return path;
 }
 
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    return entities[character];
+  });
+}
+
 function status(label, tone = "approved") {
-  return `<span class="status ${tone}">${label}</span>`;
+  return `<span class="status ${tone}">${escapeHtml(label)}</span>`;
+}
+
+function formatLabel(value) {
+  if (!value) {
+    return "Not set";
+  }
+
+  return String(value)
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function evidenceTone(value) {
+  return (
+    {
+      observed: "verified",
+      derived: "verified",
+      estimated: "estimated",
+      ai_suggested: "review",
+      approved: "approved",
+      verified: "verified",
+      needs_review: "review",
+      conflict: "risk"
+    }[value] || "review"
+  );
+}
+
+function reviewTone(value) {
+  return (
+    {
+      approved: "approved",
+      needs_review: "review",
+      blocked: "risk",
+      draft: "estimated",
+      archived: "estimated"
+    }[value] || "review"
+  );
+}
+
+function formatMetric(value, unit) {
+  if (value === null || value === undefined || value === "") {
+    return "No observation";
+  }
+
+  return `${value}${unit ? ` ${unit}` : ""}`;
 }
 
 function renderHeader(route) {
@@ -496,6 +690,172 @@ function renderQuickStart() {
       </div>
     </section>
     ${renderAppMap()}
+  `;
+}
+
+function renderOutcomeRows(outcomes = demoOutcomes, indicators = demoIndicators, stakeholders = demoStakeholders) {
+  const stakeholderById = new Map(stakeholders.map((stakeholder) => [stakeholder.id, stakeholder]));
+  const indicatorsByOutcome = indicators.reduce((map, indicator) => {
+    const list = map.get(indicator.outcome_id) || [];
+    list.push(indicator);
+    map.set(indicator.outcome_id, list);
+    return map;
+  }, new Map());
+
+  return outcomes
+    .slice()
+    .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0))
+    .map((outcome) => {
+      const stakeholder = stakeholderById.get(outcome.stakeholder_id);
+      const primaryIndicator = indicatorsByOutcome.get(outcome.id)?.[0];
+      const changeLabel = outcome.change_type === "negative" ? "Negative effect" : "Positive change";
+
+      return `
+        <tr>
+          <td>
+            <strong>${escapeHtml(outcome.name)}</strong>
+            <span>${escapeHtml(outcome.description || "No description recorded.")}</span>
+          </td>
+          <td>${escapeHtml(stakeholder?.name || "Stakeholder not linked")}<span>${escapeHtml(stakeholder?.segment || "Segment not set")}</span></td>
+          <td>${escapeHtml(primaryIndicator?.name || "Indicator needed")}<span>${escapeHtml(formatMetric(primaryIndicator?.observed_value, primaryIndicator?.unit))}</span></td>
+          <td>${status(formatLabel(outcome.evidence_status), evidenceTone(outcome.evidence_status))}</td>
+          <td>${status(formatLabel(outcome.valuation_readiness), reviewTone(outcome.valuation_readiness))}</td>
+          <td><strong>${escapeHtml(changeLabel)}</strong><span>${escapeHtml(outcome.decision_note || "Decision note needed.")}</span></td>
+        </tr>
+      `;
+    })
+    .join("");
+}
+
+function renderOutcomeTaskItems(tasks = demoOutcomeTasks) {
+  return tasks
+    .slice()
+    .sort((a, b) => Number(a.priority || 0) - Number(b.priority || 0))
+    .map(
+      (task) => `
+        <li>
+          <span class="priority-rank">${escapeHtml(task.priority || "-")}</span>
+          <div>
+            <strong>${escapeHtml(task.title)}</strong>
+            <p>${escapeHtml(formatLabel(task.task_type))} for ${escapeHtml(task.affected_area || "project model")}. Due ${escapeHtml(task.due_on || "not set")}.</p>
+          </div>
+        </li>
+      `
+    )
+    .join("");
+}
+
+function renderOutcomesWorkspace() {
+  const backend = getBackendStatus();
+
+  return `
+    <section class="section" aria-labelledby="model-title">
+      <div class="section-header">
+        <div>
+          <h2 id="model-title">Outcome model canvas</h2>
+          <p>Each outcome must connect a stakeholder, material change, indicator, evidence status, valuation readiness, and decision effect.</p>
+        </div>
+        ${status("Materiality review", "review")}
+      </div>
+      <div class="outcome-map" aria-label="Theory of change chain">
+        ${[
+          ["Inputs and activities", "Training, coaching, employer matching, participant support, and transport mitigation."],
+          ["People affected", "Adult job seekers, rural participants, employers, families, and public support systems."],
+          ["Material outcomes", "Employment, wage progression, confidence, reduced emergency support reliance, and possible transport burden."],
+          ["Evidence and value", "Every outcome needs a source, indicator, validation path, proxy decision, and confidence treatment."]
+        ]
+          .map((item) => `<article class="outcome-step"><span>${item[0]}</span><p>${item[1]}</p></article>`)
+          .join("")}
+      </div>
+    </section>
+
+    <div class="outcomes-workspace-grid">
+      <section class="section" aria-labelledby="register-title">
+        <div class="section-header">
+          <div>
+            <h2 id="register-title">Outcome register</h2>
+            <p data-outcomes-source>${backend.configured ? "Loading Supabase outcomes for the demo project." : "Showing demo outcomes until Supabase is configured."}</p>
+          </div>
+          <span data-backend-badge>${status(backend.configured ? "Supabase loading" : "Demo fallback", backend.configured ? "review" : "estimated")}</span>
+        </div>
+        <div class="table-wrapper">
+          <table class="outcome-table">
+            <caption>Outcome register with stakeholders, indicators, evidence, valuation readiness, and decision effect</caption>
+            <thead>
+              <tr>
+                <th scope="col">Outcome</th>
+                <th scope="col">Stakeholder</th>
+                <th scope="col">Indicator</th>
+                <th scope="col">Evidence</th>
+                <th scope="col">Valuation</th>
+                <th scope="col">Decision effect</th>
+              </tr>
+            </thead>
+            <tbody data-outcomes-table-body>
+              ${renderOutcomeRows()}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="panel-stack" aria-label="Outcome governance">
+        <section class="panel" aria-labelledby="backend-title">
+          <div class="section-header">
+            <div>
+              <h2 id="backend-title">Backend readiness</h2>
+              <p data-backend-detail>${escapeHtml(backend.detail)}</p>
+            </div>
+            <span data-backend-status>${status(backend.label, backend.configured ? "verified" : "estimated")}</span>
+          </div>
+          <dl class="backend-list">
+            <div><dt>Project ID</dt><dd data-backend-project>${escapeHtml(backend.projectId)}</dd></div>
+            <div><dt>Read path</dt><dd>outcomes, indicators, stakeholders, review_tasks</dd></div>
+            <div><dt>Write rule</dt><dd>Blocked in prototype until auth and reviewer roles are wired.</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel" aria-labelledby="outcome-tasks-title">
+          <div class="section-header">
+            <div>
+              <h2 id="outcome-tasks-title">Outcome review queue</h2>
+              <p>Tasks are ranked by materiality, SROI effect, confidence effect, and participant burden.</p>
+            </div>
+          </div>
+          <ol class="priority-list" data-outcome-task-list>
+            ${renderOutcomeTaskItems()}
+          </ol>
+        </section>
+      </aside>
+    </div>
+
+    <section class="section" aria-labelledby="validation-title">
+      <div class="section-header">
+        <div>
+          <h2 id="validation-title">Stakeholder validation and boundaries</h2>
+          <p>ImpactPulse should show whose voice is represented, whose may be missing, and which outcomes are not yet safe to value.</p>
+        </div>
+        ${status("Publication blocked", "risk")}
+      </div>
+      <div class="validation-grid">
+        <article class="validation-item">
+          <span>Represented</span>
+          <strong>Participants completing training</strong>
+          <p>Monitoring records and placement data support reach, completion, and wage progression.</p>
+        </article>
+        <article class="validation-item">
+          <span>Underrepresented</span>
+          <strong>Rural participants</strong>
+          <p>Interview sample is too small to approve the transport-burden or SDG 10.2 claim.</p>
+        </article>
+        <article class="validation-item">
+          <span>Excluded for now</span>
+          <strong>Employer productivity gain</strong>
+          <p>Useful context, but not counted until stakeholder materiality and attribution are reviewed.</p>
+        </article>
+      </div>
+    </section>
+
+    ${renderStateGrid("Outcome workspace states", "The outcomes page must support empty models, partial indicators, Supabase errors, and incomplete valuation readiness.")}
   `;
 }
 
@@ -956,10 +1316,83 @@ function renderRouteView(route) {
   if (route.view === "quickStart") return renderQuickStart();
   if (route.view === "evidence") return renderEvidenceReview();
   if (route.view === "dataQuality") return renderDataQuality();
+  if (route.view === "outcomes") return renderOutcomesWorkspace();
   if (route.view === "assumptions") return `<div class="content-grid"><div class="main">${renderAssumptionsLab(false)}${renderAppMap()}</div><aside class="panel-stack">${renderAssumptionPanel()}${renderDownstreamPanel()}</aside></div>`;
   if (route.view === "decision") return renderDecisionRoom();
   if (route.view === "reports") return renderReports();
   return renderWorkspaceRoute(route);
+}
+
+async function hydrateRoute(route) {
+  if (route.view !== "outcomes") {
+    return;
+  }
+
+  const backend = getBackendStatus();
+
+  if (!backend.configured) {
+    return;
+  }
+
+  const sourceNote = document.querySelector("[data-outcomes-source]");
+  const backendBadge = document.querySelector("[data-backend-badge]");
+  const backendStatus = document.querySelector("[data-backend-status]");
+  const backendDetail = document.querySelector("[data-backend-detail]");
+  const tableBody = document.querySelector("[data-outcomes-table-body]");
+  const taskList = document.querySelector("[data-outcome-task-list]");
+
+  try {
+    const workspace = await loadOutcomesWorkspace();
+    const hasOutcomes = workspace.outcomes.length > 0;
+
+    if (hasOutcomes && tableBody) {
+      tableBody.innerHTML = renderOutcomeRows(
+        workspace.outcomes,
+        workspace.indicators,
+        workspace.stakeholders
+      );
+    }
+
+    if (workspace.tasks.length > 0 && taskList) {
+      taskList.innerHTML = renderOutcomeTaskItems(workspace.tasks);
+    }
+
+    if (sourceNote) {
+      sourceNote.textContent = hasOutcomes
+        ? `Loaded ${workspace.outcomes.length} outcome${workspace.outcomes.length === 1 ? "" : "s"} from Supabase.`
+        : "Supabase connected, but no outcomes were returned for the demo project. Demo rows remain visible.";
+    }
+
+    if (backendBadge) {
+      backendBadge.innerHTML = status(hasOutcomes ? "Supabase live" : "Supabase empty", hasOutcomes ? "verified" : "review");
+    }
+
+    if (backendStatus) {
+      backendStatus.innerHTML = status("RLS read attempted", "verified");
+    }
+
+    if (backendDetail) {
+      backendDetail.textContent = hasOutcomes
+        ? "Rows were read through the anon key. RLS controls whether the signed-in user can see organization data."
+        : "Configuration is present. Check seed data, project ID, and membership policies if rows should appear.";
+    }
+  } catch (error) {
+    if (sourceNote) {
+      sourceNote.textContent = "Supabase could not load outcomes. Demo rows remain visible.";
+    }
+
+    if (backendBadge) {
+      backendBadge.innerHTML = status("Supabase error", "risk");
+    }
+
+    if (backendStatus) {
+      backendStatus.innerHTML = status("Read failed", "risk");
+    }
+
+    if (backendDetail) {
+      backendDetail.textContent = error instanceof Error ? error.message : "Unknown Supabase error.";
+    }
+  }
 }
 
 function renderApp() {
@@ -978,6 +1411,7 @@ function renderApp() {
     ${renderDrawer(route)}
   `;
   bindInteractions();
+  void hydrateRoute(route);
 }
 
 function bindInteractions() {
