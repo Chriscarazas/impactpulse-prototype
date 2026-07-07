@@ -211,3 +211,36 @@ Required states:
 - Empty: keep model guidance visible and explain which Supabase project has no rows.
 - Error: preserve demo rows and show the failed backend read state.
 - Incomplete data: block valuation and publication for outcomes without sufficient evidence or stakeholder validation.
+
+## Organization Impact Overview
+
+Route: `/portfolio/`
+
+Primary role:
+
+- Executive reviewer, funder, advisor, evaluator
+
+Primary questions:
+
+- What changed?
+- Who experiences the change?
+- What evidence do we have?
+- What harms or disbenefits remain unresolved?
+- What decision should happen next?
+
+Required content:
+
+- Impact Account default view before any SROI ratio, benchmark, or monetized portfolio claim.
+- Outcomes and people affected, including positive outcomes and material harms.
+- Harms/disbenefits status, equity status, uncertainty status, and public-reporting status.
+- Evidence distribution without converting confidence into an evidence-adjusted value.
+- Total investment, reporting period, and decision implication.
+- Unmonetized material outcomes that remain visible when valuation is premature.
+- Methodology safety gates for SROI eligibility, benchmark comparability, harm review, stakeholder legitimacy, and public reporting.
+
+Required states:
+
+- Loading: reserve account summary, evidence distribution, governance, and decision regions.
+- Empty: show account structure and explain which required evidence is missing.
+- Error: preserve the last account view and block publication.
+- Incomplete data: keep the account useful for internal planning while blocking public reporting, SROI comparison, and assurance-ready language.

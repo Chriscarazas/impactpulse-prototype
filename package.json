@@ -6,6 +6,8 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "start": "node scripts/serve.mjs",
+    "test": "node scripts/methodology-safety-check.mjs",
+    "test:methodology": "node scripts/methodology-safety-check.mjs",
     "design:audit": "node scripts/design-audit.mjs",
     "test:visual": "node scripts/design-audit.mjs --visual-only",
     "test:accessibility": "node scripts/design-audit.mjs --accessibility-only",

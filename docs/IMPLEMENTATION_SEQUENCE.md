@@ -72,3 +72,12 @@ Build `/outcomes/` as the first backend-aware workspace. It should connect stake
 - Add Supabase Auth and organization onboarding.
 - Create membership invitation and role management flows.
 - Preserve audit events for evidence, assumptions, approvals, and report snapshots.
+
+## Priority 10: Fortified Methodology Safety Baseline
+
+- Add methodology feature flags for Impact Account default, SROI eligibility, SROI comparison blocking, benchmark eligibility, harm review, stakeholder legitimacy, and assurance matrix requirements.
+- Reframe `/portfolio/` as the Impact Account executive view before portfolio SROI, benchmark, or monetized allocation claims.
+- Keep `/` as the SROI method page while marking the current ratio as exploratory until eligibility is assessed.
+- Add visible safety gates on SROI, decision, report, portfolio, benchmark, valuation, and assurance routes.
+- Avoid Supabase schema changes in this phase; preserve all existing data, migrations, routes, and evidence intake behavior.
+- Add a methodology safety check alongside the existing route visual and accessibility audit.

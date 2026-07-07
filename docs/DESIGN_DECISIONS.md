@@ -133,3 +133,17 @@ The repository is still a framework-free static prototype with no Next.js `app/`
 Consequence:
 
 The local server can use Supabase's current project credentials through `.env.local`, while the app keeps the direct REST/Auth/Storage adapter until a deliberate framework migration happens.
+
+## 2026-07-07: Add Fortified Methodology Safety Baseline
+
+Decision:
+
+Keep the existing SROI route and demo result, but make the Impact Account the default executive framing for `/portfolio/` and add explicit methodology gates on SROI, decision, report, portfolio, benchmark, valuation, and assurance routes.
+
+Reason:
+
+The fortified roadmap makes SROI one governed method inside a broader impact decision system. A ratio must not lead executive or portfolio decisions until eligibility, benchmark comparability, harms, stakeholder legitimacy, and public-reporting readiness are assessed.
+
+Consequence:
+
+The first migration phase is UI/data-model mock only. It adds feature flags and visible status callouts, removes unsafe portfolio wording such as aggregate SROI and evidence-adjusted result, and preserves all existing route, Supabase, evidence upload, and audit behavior. Rollback is non-destructive: disable the methodology feature flags or revert the UI commit; no schema or data rollback is required.

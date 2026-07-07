@@ -309,15 +309,16 @@ async function run() {
   const warnings = [];
   const screenshotFiles = [];
 
-  await rm(artifactRoot, { recursive: true, force: true });
-  await mkdir(screenshotsRoot, { recursive: true });
-  await mkdir(reportsRoot, { recursive: true });
-
   const { chromium } = loadPlaywright();
   const { server, origin } = await createStaticServer({ port: 0 });
-  const browser = await launchAuditedBrowser(chromium);
+  let browser;
 
   try {
+    browser = await launchAuditedBrowser(chromium);
+    await rm(artifactRoot, { recursive: true, force: true });
+    await mkdir(screenshotsRoot, { recursive: true });
+    await mkdir(reportsRoot, { recursive: true });
+
     for (const route of routes) {
       for (const viewport of viewports) {
         const page = await browser.newPage({ viewport });
@@ -370,7 +371,7 @@ async function run() {
       }
     }
   } finally {
-    await browser.close();
+    await browser?.close();
     server.close();
   }
 
