@@ -64,6 +64,7 @@ const routeDefinitions = [
     activeStep: 4,
     lead: "Profile sufficiency, conflicts, coverage, gaps, and treatments before evidence can drive SROI or assurance claims.",
     action: "Create collection plan",
+    view: "dataQuality",
     capabilities: ["Quality profile", "Conflict queue", "Gap prioritization", "Treatment log"],
     nextBuild: "Turn the evidence queue gaps into a ranked data collection plan."
   },
@@ -588,6 +589,151 @@ function renderReports() {
   `;
 }
 
+function renderDataQuality() {
+  return `
+    <section class="section" aria-labelledby="quality-title">
+      <div class="section-header">
+        <div>
+          <h2 id="quality-title">Evidence quality profile</h2>
+          <p>Quality is evaluated before evidence can change SROI, confidence, SDG language, benchmark eligibility, or report readiness.</p>
+        </div>
+        ${status("Developing", "review")}
+      </div>
+      <div class="quality-summary-grid">
+        ${[
+          ["Evidence coverage", "74%", "Reviewed claims with approved or traceable sources.", "approved"],
+          ["Sufficiency", "68%", "Enough for internal planning, not public reporting.", "review"],
+          ["Conflict exposure", "2", "Material conflicts affect investment boundary and follow-up.", "risk"],
+          ["Assurance gaps", "4", "Open gaps touch SVI principles 1, 4, 5, and 6.", "estimated"]
+        ]
+          .map(
+            ([label, value, text, tone]) => `
+              <article class="quality-score">
+                <span class="quality-label">${label}</span>
+                <strong>${value}</strong>
+                <p>${text}</p>
+                ${status(tone === "risk" ? "Blocks publication" : tone === "approved" ? "Usable" : "Needs treatment", tone)}
+              </article>`
+          )
+          .join("")}
+      </div>
+    </section>
+
+    <div class="content-grid">
+      <section class="section" aria-labelledby="matrix-title">
+        <div class="section-header">
+          <div>
+            <h2 id="matrix-title">Quality dimensions and treatments</h2>
+            <p>Each dimension shows current condition, downstream effect, and the treatment required before approval.</p>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="quality-table">
+            <caption>Data quality matrix</caption>
+            <thead>
+              <tr>
+                <th scope="col">Dimension</th>
+                <th scope="col">Current finding</th>
+                <th scope="col">Affects</th>
+                <th scope="col">Treatment</th>
+                <th scope="col">Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Completeness</strong>${status("Needs review", "review")}</td>
+                <td>Six-month follow-up covers 62% of sustained employment claim.</td>
+                <td>SROI range, confidence, report disclosure.</td>
+                <td>Collect missing follow-up or apply conservative case.</td>
+                <td>M&E</td>
+              </tr>
+              <tr>
+                <td><strong>Representativeness</strong>${status("Material gap", "estimated")}</td>
+                <td>Rural participants are underrepresented in stakeholder interviews.</td>
+                <td>Equity, harms, SDG 10.2, decision conditions.</td>
+                <td>Add rural interview sample before equity claim approval.</td>
+                <td>Program</td>
+              </tr>
+              <tr>
+                <td><strong>Validity</strong>${status("Conflict", "risk")}</td>
+                <td>Budget export and proposal disagree on donated facilities.</td>
+                <td>Investment boundary, NPV, benchmark comparability.</td>
+                <td>Finance and SROI practitioner must record boundary decision.</td>
+                <td>Finance</td>
+              </tr>
+              <tr>
+                <td><strong>Provenance</strong>${status("Traceable", "verified")}</td>
+                <td>Monitoring records preserve source, transformation, and reviewer path.</td>
+                <td>Evidence lineage, assurance package, report appendix.</td>
+                <td>No treatment required; keep version locked.</td>
+                <td>Analyst</td>
+              </tr>
+              <tr>
+                <td><strong>Permission</strong>${status("Approved", "approved")}</td>
+                <td>Internal use is permitted; public reporting needs final disclosure review.</td>
+                <td>Report publication, benchmark sharing, public summary.</td>
+                <td>Confirm report-purpose permission before export.</td>
+                <td>Admin</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="panel-stack" aria-label="Data quality priorities">
+        <section class="panel" aria-labelledby="collection-title">
+          <div class="section-header">
+            <div>
+              <h2 id="collection-title">Collection plan</h2>
+              <p>Prioritized by materiality, SROI effect, confidence effect, effort, and participant burden.</p>
+            </div>
+          </div>
+          <ol class="priority-list">
+            <li><span class="priority-rank">1</span><div><strong>Complete six-month follow-up</strong><p>Highest confidence effect. Use phone and text follow-up before changing outcome value.</p></div></li>
+            <li><span class="priority-rank">2</span><div><strong>Validate rural transport barrier</strong><p>Required for equity treatment and SDG 10.2 claim language.</p></div></li>
+            <li><span class="priority-rank">3</span><div><strong>Resolve investment boundary</strong><p>Finance decision needed before external comparison or assurance package.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="panel" aria-labelledby="gating-title">
+          <div class="section-header">
+            <div>
+              <h2 id="gating-title">Approval gates</h2>
+              <p>Data quality controls what the product is allowed to say.</p>
+            </div>
+          </div>
+          <ul class="task-list">
+            <li class="task"><strong>Internal planning</strong><span>Allowed with visible caveats and draft confidence.</span>${status("Allowed", "approved")}</li>
+            <li class="task"><strong>Public SROI claim</strong><span>Blocked until follow-up and boundary conflicts are treated.</span>${status("Blocked", "risk")}</li>
+            <li class="task"><strong>Assurance package</strong><span>Can be prepared, but readiness remains Developing.</span>${status("Needs treatment", "review")}</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <section class="section" aria-labelledby="treatment-title">
+      <div class="section-header">
+        <div>
+          <h2 id="treatment-title">Treatment log</h2>
+          <p>Treatments must be visible, versioned, and linked to every affected result.</p>
+        </div>
+      </div>
+      <div class="treatment-timeline">
+        ${[
+          ["Conservative case applied", "Sustained employment uses central case but report displays low case until follow-up improves."],
+          ["Conflict frozen", "Investment boundary cannot update SROI until finance review records the treatment."],
+          ["Equity claim held", "Rural transport finding can guide action but cannot become a measured equity claim yet."],
+          ["Lineage preserved", "Monitoring transformations remain traceable in the evidence graph and report appendix."]
+        ]
+          .map((item) => `<article class="treatment-item"><h3>${item[0]}</h3><p>${item[1]}</p></article>`)
+          .join("")}
+      </div>
+    </section>
+
+    ${renderStateGrid("Data quality states", "The quality page must remain useful when sources are missing, partial, conflicting, or still being profiled.")}
+  `;
+}
+
 function renderWorkspaceRoute(route) {
   return `
     <div class="content-grid">
@@ -809,6 +955,7 @@ function renderRouteView(route) {
   if (route.view === "sroi") return renderSroiResults();
   if (route.view === "quickStart") return renderQuickStart();
   if (route.view === "evidence") return renderEvidenceReview();
+  if (route.view === "dataQuality") return renderDataQuality();
   if (route.view === "assumptions") return `<div class="content-grid"><div class="main">${renderAssumptionsLab(false)}${renderAppMap()}</div><aside class="panel-stack">${renderAssumptionPanel()}${renderDownstreamPanel()}</aside></div>`;
   if (route.view === "decision") return renderDecisionRoom();
   if (route.view === "reports") return renderReports();

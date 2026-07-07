@@ -135,3 +135,34 @@ Required states:
 - Empty: no sources connected, with upload and sample-workspace paths.
 - Error: ingestion failed, with retry and preserved upload status.
 - Incomplete data: claims can be reviewed, but affected results and reports remain draft.
+
+## Data Quality Overview
+
+Route: `/data-quality/`
+
+Primary role:
+
+- M&E specialist, impact analyst, SROI practitioner, finance reviewer, assurance reviewer
+
+Primary questions:
+
+- What evidence do we have?
+- What assumptions are we making?
+- How confident should we be?
+- What decision should happen next?
+
+Required content:
+
+- Evidence quality profile with coverage, sufficiency, conflict exposure, and assurance gaps.
+- Quality matrix for completeness, representativeness, validity, provenance, permission, and reproducibility.
+- Each quality dimension must show current finding, downstream effect, treatment, and owner.
+- Collection plan ranked by materiality, SROI effect, confidence effect, effort, and participant burden.
+- Approval gates showing what is allowed, blocked, or allowed only with caveats.
+- Treatment log showing how missing, conflicting, partial, or transformed data is handled.
+
+Required states:
+
+- Loading: reserve quality score, matrix, collection plan, and treatment log regions.
+- Empty: no connected evidence, with upload and sample workspace entry points.
+- Error: profiling failed, with retry and source-preservation path.
+- Incomplete data: evidence can inform internal planning, but publication and assurance are blocked.

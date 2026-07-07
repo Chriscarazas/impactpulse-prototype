@@ -1,6 +1,6 @@
 # ImpactPulse Design Audit
 
-Generated: 2026-07-07T09:20:08.117Z
+Generated: 2026-07-07T09:36:10.610Z
 
 ## Routes
 

@@ -67,3 +67,13 @@ The product needs shared route definitions, demo data, reusable layout patterns,
 Consequence:
 
 Routes can now be expanded consistently from `src/app.js`, and the audit workflow covers the whole spine. A framework can still be introduced later if state, component reuse, or data-fetching complexity makes the lightweight renderer too limiting.
+
+## 2026-07-07: Build Data Quality Before More Dashboards
+
+Decision:
+
+Make `/data-quality/` the next full product screen after Evidence Review Queue.
+
+Reason:
+
+ImpactPulse depends on trust gates before results, SDG claims, reports, benchmarks, and assurance packages can be used. Data Quality turns evidence gaps and conflicts into sufficiency scores, treatments, owners, and allowed/blocked product claims.
