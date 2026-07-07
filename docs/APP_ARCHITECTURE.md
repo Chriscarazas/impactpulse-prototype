@@ -46,6 +46,8 @@ The current frontend renders from demo data first. Backend-aware screens may hyd
 
 Runtime config is served from `/config.js` by `scripts/serve.mjs`. Only the Supabase URL, public anon key, schema, and demo project ID are exposed to the browser. Service-role keys must never be used in frontend code.
 
+The only current browser write path is signed-in evidence intake from `/quick-start/`: private Storage upload followed by an `evidence_sources` metadata insert. Broader writes wait for organization onboarding and reviewer role flows.
+
 ## When To Add a Framework
 
 Add React, Vue, Svelte, or another framework only when the prototype needs state complexity, component composition, data fetching, authentication flows, or interaction depth that the current route renderer can no longer handle cleanly. Document the decision in `docs/DESIGN_DECISIONS.md`.

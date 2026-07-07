@@ -1,4 +1,11 @@
-import { getBackendStatus, loadOutcomesWorkspace } from "./backend/supabase.js";
+import {
+  captureAuthSessionFromUrl,
+  getBackendStatus,
+  getEvidenceUploadStatus,
+  loadOutcomesWorkspace,
+  requestMagicLink,
+  uploadEvidenceFile
+} from "./backend/supabase.js";
 
 const demoProject = {
   id: "00000000-0000-4000-8000-000000000101",
@@ -645,6 +652,8 @@ function renderEvidenceReview() {
 }
 
 function renderQuickStart() {
+  const uploadStatus = getEvidenceUploadStatus();
+
   return `
     <section class="section" aria-labelledby="upload-title">
       <div class="section-header">
@@ -657,15 +666,35 @@ function renderQuickStart() {
       <div class="upload-flow-grid">
         <div class="upload-dropzone">
           <label for="evidence-upload">Proposal, evaluation, budget, or dataset</label>
-          <input id="evidence-upload" type="file" multiple>
-          <p>Prototype mode uses prepared demo data for the workforce-development project.</p>
+          <input id="evidence-upload" data-evidence-upload type="file" multiple>
+          <p data-upload-status aria-live="polite">${escapeHtml(uploadStatus.detail)}</p>
+          <ul class="upload-file-list" data-upload-file-list>
+            <li>No files selected.</li>
+          </ul>
         </div>
-        <ol class="journey-rail" aria-label="Upload to insight steps">
-          <li><strong>1. Connect</strong><span>Upload or select sample workspace.</span></li>
-          <li><strong>2. Extract</strong><span>Find sources, claims, costs, outcomes, and assumptions.</span></li>
-          <li><strong>3. Review</strong><span>Accept, edit, reject, or assign evidence tasks.</span></li>
-          <li><strong>4. Decide</strong><span>Move into SROI, sensitivity, and report workflows.</span></li>
-        </ol>
+        <div class="upload-control-panel">
+          <div class="section-header compact-header">
+            <div>
+              <h3>Supabase evidence intake</h3>
+              <p data-upload-readiness>${escapeHtml(uploadStatus.detail)}</p>
+            </div>
+            <span data-upload-badge>${status(uploadStatus.label, uploadStatus.tone)}</span>
+          </div>
+          <div class="auth-form">
+            <label for="auth-email">Reviewer email</label>
+            <div class="inline-form">
+              <input id="auth-email" data-auth-email type="email" autocomplete="email" placeholder="name@example.org">
+              <button class="button secondary compact" type="button" data-request-magic-link>Send link</button>
+            </div>
+            <p class="filter-note" data-auth-status aria-live="polite">${uploadStatus.configured ? "Magic links use your Supabase Auth settings." : "Add Supabase env values to enable live sign-in."}</p>
+          </div>
+          <ol class="journey-rail" aria-label="Upload to insight steps">
+            <li><strong>1. Connect</strong><span>Upload or select sample workspace.</span></li>
+            <li><strong>2. Store</strong><span>Create private evidence object and source metadata.</span></li>
+            <li><strong>3. Review</strong><span>Accept, edit, reject, or assign evidence tasks.</span></li>
+            <li><strong>4. Decide</strong><span>Move into SROI, sensitivity, and report workflows.</span></li>
+          </ol>
+        </div>
       </div>
     </section>
     <section class="section" aria-labelledby="first-insight-title">
@@ -1415,6 +1444,8 @@ function renderApp() {
 }
 
 function bindInteractions() {
+  captureAuthSessionFromUrl();
+
   const drawer = document.querySelector("[data-drawer]");
   const openDrawerButtons = document.querySelectorAll("[data-open-drawer]");
   const closeDrawerButton = document.querySelector("[data-close-drawer]");
@@ -1424,7 +1455,22 @@ function bindInteractions() {
   const filterButtons = document.querySelectorAll("[data-filter]");
   const filterTargets = document.querySelectorAll("[data-filter-target]");
   const filterNote = document.querySelector("[data-filter-note]");
+  const uploadInput = document.querySelector("[data-evidence-upload]");
+  const uploadStatus = document.querySelector("[data-upload-status]");
+  const uploadReadiness = document.querySelector("[data-upload-readiness]");
+  const uploadBadge = document.querySelector("[data-upload-badge]");
+  const uploadFileList = document.querySelector("[data-upload-file-list]");
+  const authEmail = document.querySelector("[data-auth-email]");
+  const authButton = document.querySelector("[data-request-magic-link]");
+  const authStatus = document.querySelector("[data-auth-status]");
   let lastFocusedElement = null;
+
+  function updateUploadReadiness() {
+    const readiness = getEvidenceUploadStatus();
+    if (uploadStatus) uploadStatus.textContent = readiness.detail;
+    if (uploadReadiness) uploadReadiness.textContent = readiness.detail;
+    if (uploadBadge) uploadBadge.innerHTML = status(readiness.label, readiness.tone);
+  }
 
   function openDrawer() {
     lastFocusedElement = document.activeElement;
@@ -1486,6 +1532,95 @@ function bindInteractions() {
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => updateClaimFilter(button.dataset.filter || "all"));
+  });
+
+  updateUploadReadiness();
+
+  authButton?.addEventListener("click", async () => {
+    const email = authEmail?.value.trim();
+
+    if (!email) {
+      if (authStatus) authStatus.textContent = "Enter a reviewer email before requesting a magic link.";
+      authEmail?.focus();
+      return;
+    }
+
+    authButton.disabled = true;
+    if (authStatus) authStatus.textContent = "Requesting magic link...";
+
+    try {
+      await requestMagicLink(email);
+      if (authStatus) authStatus.textContent = "Magic link sent. Return here after opening it.";
+    } catch (error) {
+      if (authStatus) {
+        authStatus.textContent = error instanceof Error ? error.message : "Magic link request failed.";
+      }
+    } finally {
+      authButton.disabled = false;
+      updateUploadReadiness();
+    }
+  });
+
+  uploadInput?.addEventListener("change", async () => {
+    const files = Array.from(uploadInput.files || []);
+
+    if (!files.length) {
+      if (uploadFileList) uploadFileList.innerHTML = "<li>No files selected.</li>";
+      updateUploadReadiness();
+      return;
+    }
+
+    const readiness = getEvidenceUploadStatus();
+    if (uploadFileList) {
+      uploadFileList.innerHTML = files
+        .map((file) => `<li><strong>${escapeHtml(file.name)}</strong><span>Ready to process.</span></li>`)
+        .join("");
+    }
+
+    if (!readiness.configured || !readiness.signedIn) {
+      if (uploadStatus) {
+        uploadStatus.textContent = readiness.configured
+          ? "Files are selected. Sign in before uploading to Supabase."
+          : "Files are selected in demo mode. Add Supabase config for live upload.";
+      }
+      return;
+    }
+
+    if (uploadStatus) uploadStatus.textContent = `Uploading ${files.length} file${files.length === 1 ? "" : "s"} to Supabase...`;
+
+    const results = [];
+    for (const file of files) {
+      try {
+        results.push(await uploadEvidenceFile(file, {
+          organizationId: demoProject.organizationId,
+          projectId: demoProject.id
+        }));
+      } catch (error) {
+        results.push({
+          uploaded: false,
+          title: file.name,
+          detail: error instanceof Error ? error.message : "Upload failed."
+        });
+      }
+    }
+
+    if (uploadFileList) {
+      uploadFileList.innerHTML = results
+        .map(
+          (result) => `
+            <li>
+              <strong>${escapeHtml(result.title)}</strong>
+              <span>${escapeHtml(result.uploaded ? "Uploaded to Supabase." : result.detail)}</span>
+            </li>
+          `
+        )
+        .join("");
+    }
+
+    if (uploadStatus) {
+      const uploadedCount = results.filter((result) => result.uploaded).length;
+      uploadStatus.textContent = `${uploadedCount} of ${results.length} file${results.length === 1 ? "" : "s"} uploaded.`;
+    }
   });
 }
 

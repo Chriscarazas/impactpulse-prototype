@@ -49,6 +49,10 @@ Primary questions:
 Required content:
 
 - Upload surface for proposal, evaluation, budget, dataset, and stakeholder notes.
+- Supabase readiness panel showing demo mode, sign-in needed, or upload-ready state.
+- Magic-link request control for reviewer sign-in.
+- Evidence file queue that remains useful without backend credentials.
+- Signed-in upload path that creates private Storage objects and `evidence_sources` metadata.
 - First insight containing candidate people affected, outcomes, evidence sources, gaps, comparable evidence, SDG suggestions, critical assumptions, and next action.
 - Clear labels that generated insight is draft and requires human review.
 - Route map into Evidence Review Queue, Outcomes, Valuation, Assumptions, Decision, and Report.
@@ -64,6 +68,13 @@ Project-level contextual navigation:
 - Assumptions
 - Decisions
 - Reports
+
+Required states:
+
+- Loading: selected files show processing status without shifting the upload surface.
+- Empty: no files selected, with sample workspace still available.
+- Error: magic-link or upload failure preserves selected file names and shows the failed state.
+- Incomplete data: uploaded sources remain `needs_review` until extraction, permission, and evidence quality are reviewed.
 
 ## Pilot Page: SROI Results
 

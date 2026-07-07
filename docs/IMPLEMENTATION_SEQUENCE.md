@@ -66,8 +66,9 @@ Build `/outcomes/` as the first backend-aware workspace. It should connect stake
 
 ## Priority 9: Auth and Evidence Storage
 
+- Add Supabase magic-link auth for evidence upload.
+- Add private evidence file storage with organization-prefixed paths.
+- Connect upload metadata to `evidence_sources`.
 - Add Supabase Auth and organization onboarding.
 - Create membership invitation and role management flows.
-- Add evidence file storage with organization-prefixed paths.
-- Connect upload metadata to `evidence_sources`.
 - Preserve audit events for evidence, assumptions, approvals, and report snapshots.

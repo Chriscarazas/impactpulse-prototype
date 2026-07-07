@@ -886,6 +886,10 @@ td {
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.75fr);
 }
 
+.compact-header {
+  margin-bottom: var(--space-4);
+}
+
 .upload-dropzone {
   background: var(--color-surface-subtle);
   border: 2px dashed var(--color-border-strong);
@@ -915,6 +919,68 @@ td {
 .upload-dropzone p {
   color: var(--color-text-muted);
   margin: 0;
+}
+
+.upload-file-list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.upload-file-list li {
+  background: var(--color-surface);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+}
+
+.upload-file-list strong {
+  color: var(--color-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.upload-file-list span {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.upload-control-panel {
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.auth-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.auth-form label {
+  color: var(--color-text-strong);
+  font-weight: 800;
+}
+
+.inline-form {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.inline-form input {
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  min-height: 2.5rem;
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  width: 100%;
 }
 
 .journey-rail {
@@ -1368,6 +1434,10 @@ td {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
+  }
+
+  .inline-form {
+    grid-template-columns: 1fr;
   }
 
   .segment {

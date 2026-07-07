@@ -32,7 +32,7 @@ Copy `.env.example` to `.env.local` and add your Supabase project URL and public
 
 The schema lives in `supabase/migrations/`, demo seed data lives in `supabase/seed.sql`, and setup details live in `docs/SUPABASE_BACKEND.md`.
 
-The prototype still works without Supabase. When configured, `/outcomes/` attempts to read Supabase outcomes, indicators, stakeholders, and review tasks through RLS-safe anon-key requests.
+The prototype still works without Supabase. When configured, `/outcomes/` attempts to read Supabase outcomes, indicators, stakeholders, and review tasks through RLS-safe anon-key requests. `/quick-start/` can request a magic link and upload signed-in evidence files into private Supabase Storage.
 
 ## Review Workflows
 

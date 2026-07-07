@@ -105,3 +105,17 @@ Outcomes sit upstream of valuation, SROI, SDG claims, reports, and assurance. Pr
 Consequence:
 
 The current static renderer stays in place. A frontend framework or `@supabase/supabase-js` should be introduced only when auth, writes, subscriptions, or larger data-fetching complexity justify the build-system change.
+
+## 2026-07-07: Add Private Evidence Intake Before Full App Writes
+
+Decision:
+
+Add Supabase magic-link sign-in and private Storage upload to `/quick-start/`, but keep broader application writes constrained to evidence intake.
+
+Reason:
+
+Evidence files are the first durable user-owned objects ImpactPulse needs. Uploads must be tenant-scoped, permissioned, traceable, and connected to `evidence_sources` before extraction or SROI logic can be trusted.
+
+Consequence:
+
+The app now has a private `impact-evidence` bucket, organization-scoped Storage policies, magic-link request handling, session capture, and evidence metadata creation. Organization onboarding, membership invitations, and richer write workflows remain future work.
