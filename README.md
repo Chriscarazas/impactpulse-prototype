@@ -1,10 +1,10 @@
 # ImpactPulse Prototype
 
-ImpactPulse is a social-impact measurement and SROI decision platform. This prototype starts with the smallest useful foundation: product governance, design-system tokens, representative SROI Results and Evidence Review Queue pages, and automated visual/accessibility review.
+ImpactPulse is a social-impact measurement and SROI decision platform. This prototype now has a route-driven product spine: governance docs, design-system tokens, shared demo data, representative SROI and evidence screens, Upload-to-First-Insight, and automated visual/accessibility review.
 
 ## Current Stack
 
-- Static HTML, CSS, and JavaScript
+- Route-driven static HTML, CSS, and JavaScript
 - CSS custom properties for design tokens
 - Node static server for local preview
 - Playwright-based design audit for screenshots, responsive checks, and accessibility checks
@@ -21,6 +21,7 @@ pnpm start
 Then open:
 
 - `http://127.0.0.1:4173` for SROI Results
+- `http://127.0.0.1:4173/quick-start/` for Upload to First Insight
 - `http://127.0.0.1:4173/evidence/` for Evidence Review Queue
 
 ## Review Workflows
@@ -32,7 +33,7 @@ pnpm test:accessibility
 pnpm quality
 ```
 
-The audit starts the app, visits principal routes, captures screenshots at 1440x1000, 1280x800, 768x1024, 390x844, and 360x800, checks for page overflow and layout failures, runs accessibility checks, and writes artifacts under `artifacts/design-audit/latest`.
+The audit starts the app, visits the route spine, captures screenshots at 1440x1000, 1280x800, 768x1024, 390x844, and 360x800, checks for page overflow and layout failures, runs accessibility checks, and writes artifacts under `artifacts/design-audit/latest`.
 
 ## Product Spine
 

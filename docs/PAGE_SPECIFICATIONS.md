@@ -12,6 +12,47 @@ Global navigation:
 - Reports
 - Govern
 
+## Route Spine
+
+- `/`: SROI Results.
+- `/quick-start/`: Upload to First Insight.
+- `/evidence/`: Evidence Review Queue.
+- `/data-quality/`: Data Quality Overview.
+- `/outcomes/`: Outcomes and Indicators.
+- `/valuation/`: Financial Proxy Workspace.
+- `/assumptions/`: Assumptions Lab.
+- `/decision/`: Decision Room.
+- `/reports/`: Report Storyboard.
+- `/portfolio/`: Organization Impact Overview.
+- `/benchmarks/`: Benchmark Cohort Builder.
+- `/sdg/`: SDG Target Mapping.
+- `/assurance/`: Assurance Readiness.
+
+Every route must use the same workforce-development demo scenario until a backend exists.
+
+## Upload to First Insight
+
+Route: `/quick-start/`
+
+Primary role:
+
+- Advisor, evaluator, analyst, program manager
+
+Primary questions:
+
+- What are we trying to change?
+- Who experiences the change?
+- What evidence do we have?
+- What assumptions are we making?
+- What decision should happen next?
+
+Required content:
+
+- Upload surface for proposal, evaluation, budget, dataset, and stakeholder notes.
+- First insight containing candidate people affected, outcomes, evidence sources, gaps, comparable evidence, SDG suggestions, critical assumptions, and next action.
+- Clear labels that generated insight is draft and requires human review.
+- Route map into Evidence Review Queue, Outcomes, Valuation, Assumptions, Decision, and Report.
+
 Project-level contextual navigation:
 
 - Guided Process

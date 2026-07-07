@@ -13,7 +13,18 @@ const shouldRunAccessibility = !visualOnly;
 
 const routes = [
   { name: "sroi-results", path: "/" },
-  { name: "evidence-review", path: "/evidence/" }
+  { name: "quick-start", path: "/quick-start/" },
+  { name: "evidence-review", path: "/evidence/" },
+  { name: "data-quality", path: "/data-quality/" },
+  { name: "outcomes", path: "/outcomes/" },
+  { name: "valuation", path: "/valuation/" },
+  { name: "assumptions", path: "/assumptions/" },
+  { name: "decision-room", path: "/decision/" },
+  { name: "reports", path: "/reports/" },
+  { name: "portfolio", path: "/portfolio/" },
+  { name: "benchmarks", path: "/benchmarks/" },
+  { name: "sdg-mapping", path: "/sdg/" },
+  { name: "assurance", path: "/assurance/" }
 ];
 const viewports = [
   { name: "desktop-wide", width: 1440, height: 1000 },
@@ -310,7 +321,8 @@ async function run() {
       for (const viewport of viewports) {
         const page = await browser.newPage({ viewport });
         const url = `${origin}${route.path}`;
-        await page.goto(url, { waitUntil: "networkidle" });
+        await page.goto(url, { waitUntil: "domcontentloaded" });
+        await page.waitForSelector("main", { timeout: 5000 });
 
         const layoutReport = await getLayoutReport(page);
 

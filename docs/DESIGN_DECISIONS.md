@@ -53,3 +53,17 @@ Build `/evidence/` before adding another results or dashboard page.
 Reason:
 
 Evidence review is the trust layer for SROI results, assumptions, SDG target claims, benchmark eligibility, reports, and assurance readiness. The page makes source quality, extracted claims, unresolved gaps, conflicts, and downstream effects visible before users approve or publish analytical outputs.
+
+## 2026-07-06: Move to a Route-Driven Prototype Spine
+
+Decision:
+
+Use a lightweight JavaScript route renderer for the full prototype spine instead of adding a frontend framework immediately.
+
+Reason:
+
+The product needs shared route definitions, demo data, reusable layout patterns, and audit coverage across the full journey. The current prototype can support that without adding React, Vue, Svelte, or a build system yet.
+
+Consequence:
+
+Routes can now be expanded consistently from `src/app.js`, and the audit workflow covers the whole spine. A framework can still be introduced later if state, component reuse, or data-fetching complexity makes the lightweight renderer too limiting.

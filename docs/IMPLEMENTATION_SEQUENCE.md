@@ -28,11 +28,19 @@
 - Preserve review artifacts.
 - Fail clearly on critical issues.
 
-## Priority 4: Evidence Review Queue
+## Priority 4: Full Product Spine
+
+- Add route-driven app shell.
+- Define route map for the core MVP journey and later platform areas.
+- Keep the same demo data across every route.
+- Add Upload-to-First-Insight as the flagship entry flow.
+- Audit every route in the spine.
+
+## Priority 5: Evidence Review Queue
 
 Build the upstream evidence review page next. It should include source inventory, extracted claims, data quality, conflicts, gaps, AI suggestions, human approval, and assignment states.
 
-## Priority 5: Reusable Component Extraction
+## Priority 6: Reusable Component Extraction
 
 Extract components only after patterns are proven across at least two pages:
 
@@ -43,4 +51,3 @@ Extract components only after patterns are proven across at least two pages:
 - Assumption row
 - Accessible chart block
 - Review task list
-
