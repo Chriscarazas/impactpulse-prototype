@@ -13,7 +13,7 @@ const shouldRunAccessibility = !visualOnly;
 process.env.IMPACTPULSE_FORCE_DEMO_MODE = "1";
 
 const routes = [
-  { name: "sroi-results", path: "/" },
+  { name: "impact-account", path: "/" },
   { name: "quick-start", path: "/quick-start/" },
   { name: "evidence-review", path: "/evidence/" },
   { name: "data-quality", path: "/data-quality/" },

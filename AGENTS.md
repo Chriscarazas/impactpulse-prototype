@@ -41,8 +41,8 @@ This repository is the working product and design-system foundation for ImpactPu
 
 Every review should ask:
 
-- Can a new user find the current SROI step within five seconds?
-- Can a headline result be traced to evidence and assumptions?
+- Can a new user tell whether they are reviewing the Impact Account, method context, or a specific workflow step within five seconds?
+- Can any value claim be traced to evidence, assumptions, and methodological eligibility?
 - Is confidence or uncertainty visible beside the result?
 - Are harms, excluded groups, and weak evidence surfaced near claims?
 - Does the page state the next recommended decision or action?

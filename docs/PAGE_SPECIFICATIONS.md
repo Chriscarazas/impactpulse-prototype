@@ -14,21 +14,44 @@ Global navigation:
 
 ## Route Spine
 
-- `/`: SROI Results.
+- `/`: Impact Account.
 - `/quick-start/`: Upload to First Insight.
 - `/evidence/`: Evidence Review Queue.
 - `/data-quality/`: Data Quality Overview.
 - `/outcomes/`: Outcomes and Indicators.
-- `/valuation/`: Financial Proxy Workspace.
+- `/valuation/`: Method and Valuation Gate.
 - `/assumptions/`: Assumptions Lab.
 - `/decision/`: Decision Room.
 - `/reports/`: Report Storyboard.
-- `/portfolio/`: Organization Impact Overview.
+- `/portfolio/`: Organization Impact Account.
 - `/benchmarks/`: Benchmark Cohort Builder.
 - `/sdg/`: SDG Target Mapping.
-- `/assurance/`: Assurance Readiness.
+- `/assurance/`: Assurance Matrix.
 
 Every route must use the same workforce-development demo scenario until a backend exists.
+
+## Migration Phase: Impact Account Default and SROI Safety Baseline
+
+Objective:
+
+- Reframe ImpactPulse as a defensible impact decision system before extending feature depth.
+- Make the Impact Account the default route and executive review model.
+- Treat SROI as optional governed method context, not the universal product default.
+- Block public reporting, benchmark comparison, allocation optimization, and assurance-ready claims while SROI eligibility is not assessed.
+
+Required safeguards:
+
+- SROI appears only as governed method context until the eligibility gate is complete.
+- The product must show stakeholder legitimacy, harm review, proxy quality, counterfactual credibility, benchmark comparability, and intended-use status near SROI language.
+- The value bridge may remain visible for continuity, but it must be labeled exploratory and internal.
+- No database migration is required for this non-destructive migration phase.
+- Feature flags must make the reframing reversible while later phases add durable method-selection and eligibility data models.
+
+Rollback:
+
+- Disable or remove the `impactAccountDefault` and `sroiSafetyBaseline` route guards.
+- Restore `/` to the previous SROI Results renderer only if the fortified-roadmap review accepts the methodological risk.
+- Keep all existing Supabase data, migrations, and demo records intact.
 
 ## Upload to First Insight
 
@@ -76,7 +99,7 @@ Required states:
 - Error: magic-link or upload failure preserves selected file names and shows the failed state.
 - Incomplete data: uploaded sources remain `needs_review` until extraction, permission, and evidence quality are reviewed.
 
-## Pilot Page: SROI Results
+## Default Page: Impact Account
 
 Route: `/`
 
@@ -86,22 +109,22 @@ Primary role:
 
 Primary questions:
 
-- What social value may have been created?
+- What are we trying to change?
+- Who experiences the change?
 - What evidence do we have?
 - What assumptions are we making?
+- What social value may have been created?
 - How confident should we be?
 - What decision should happen next?
 
 Required content:
 
 - Persistent project header with project name, lifecycle state, reporting period, location, readiness, collaborators, and last approved version.
-- Ten-step SROI rail with the active SROI step visible.
-- Headline SROI result with range, confidence, analysis type, investment, social value, NPV, payback, and probability SROI exceeds 1.
-- Evidence coverage and quality label beside the headline result.
-- Gross-to-net value bridge showing investment, gross value, deadweight, attribution, displacement, drop-off, and net social value.
-- Stakeholder and outcome distribution.
-- Sensitivity summary with the most influential assumptions.
-- Assumption register preview with value, source, confidence, and approval state.
+- Impact Account sections for outcomes, people affected, harms, equity, evidence distribution, total investment, uncertainty, unmonetized material outcomes, reporting period, and decision implication.
+- SROI eligibility snapshot with stakeholder legitimacy, harm review, proxy quality, counterfactual credibility, benchmark comparability, and intended-use status.
+- Exploratory value bridge labeled as internal method context, not a publishable claim.
+- Evidence coverage and quality labels beside the account summary.
+- Assumption register preview with source, confidence, and approval state.
 - SDG target claims with claim ladder, confidence, trade-offs, reviewer, and approval status.
 - Decision recommendation and next actions.
 - "Challenge this analysis" action before approval.
@@ -111,7 +134,7 @@ Required states:
 - Loading: skeleton structure for headline, chart, table, and actions.
 - Empty: no approved outcomes or valuation proxies yet, with next data task.
 - Error: calculation cannot run, showing blocking missing inputs.
-- Incomplete data: result visible only as draft, with evidence gaps and no publish action.
+- Incomplete data: Impact Account remains visible, while exploratory SROI context is blocked from publication, benchmarking, assurance-ready claims, or allocation optimization.
 
 ## Evidence Review Queue
 
@@ -131,14 +154,14 @@ Primary questions:
 
 Required content:
 
-- It is the upstream source of trust for SROI Results.
+- It is the upstream source of trust for the Impact Account, method context, SDG claims, benchmark eligibility, reports, and assurance readiness.
 - It exercises source provenance, data quality, conflicts, evidence gaps, review states, AI suggestions, and assignment flows.
 - Source inventory with provenance, permission, freshness, quality, and supported claims.
 - Extracted claim review across reach, costs, outcomes, indicators, proxies, assumptions, SDG mappings, and benchmark inputs.
 - Evidence quality statuses: observed, derived, estimated, AI suggested, human approved, independently verified, needs review, and conflict.
-- Gap prioritization by materiality, SROI effect, confidence effect, decision value, effort, feasibility, ethical risk, and participant burden.
+- Gap prioritization by materiality, method effect, confidence effect, decision value, effort, feasibility, ethical risk, and participant burden.
 - Conflict resolution showing disagreeing sources, affected calculation, required reviewer, and decision path.
-- Downstream impact view showing affected SROI results, SDG claims, report sections, and assurance readiness.
+- Downstream impact view showing affected SROI eligibility, Impact Account sections, SDG claims, report sections, and assurance readiness.
 
 Required states:
 
@@ -167,7 +190,7 @@ Required content:
 - Evidence quality profile with coverage, sufficiency, conflict exposure, and assurance gaps.
 - Quality matrix for completeness, representativeness, validity, provenance, permission, and reproducibility.
 - Each quality dimension must show current finding, downstream effect, treatment, and owner.
-- Collection plan ranked by materiality, SROI effect, confidence effect, effort, and participant burden.
+- Collection plan ranked by materiality, method effect, confidence effect, effort, and participant burden.
 - Approval gates showing what is allowed, blocked, or allowed only with caveats.
 - Treatment log showing how missing, conflicting, partial, or transformed data is handled.
 
@@ -202,7 +225,7 @@ Required content:
 - Outcome register showing stakeholder, indicator, evidence status, valuation readiness, and decision effect.
 - Indicator mapping with observed value, unit, collection cadence, and evidence source.
 - Stakeholder validation view showing represented, underrepresented, and intentionally excluded groups.
-- Review queue ranked by materiality, SROI effect, confidence effect, and participant burden.
+- Review queue ranked by materiality, method effect, confidence effect, and participant burden.
 - Backend status showing whether rows are loaded from Supabase or demo fallback.
 
 Required states:

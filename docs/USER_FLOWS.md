@@ -44,7 +44,7 @@ Dashboard -> Assumptions Lab -> Live edits -> Recalculation -> Scenario comparis
 
 Success criteria:
 
-- Every assumption change shows previous value, new value, SROI effect, social-value effect, confidence effect, and decision effect.
+- Every assumption change shows previous value, new value, method eligibility effect, social-value effect, confidence effect, and decision effect.
 
 ## Flow F: Organization Portfolio
 

@@ -6,7 +6,7 @@ Most teams can explain what they spent and how many people they reached. ImpactP
 
 ## Product Promise
 
-Upload existing materials such as proposals, evaluations, budgets, monitoring data, and stakeholder evidence. ImpactPulse turns them into a reviewable project model, evidence assessment, outcome framework, deterministic SROI analysis, decision brief, and transparent report.
+Upload existing materials such as proposals, evaluations, budgets, monitoring data, and stakeholder evidence. ImpactPulse turns them into a reviewable project model, evidence assessment, outcome framework, Impact Account, governed method context, decision brief, and transparent report.
 
 ## Primary Users
 
@@ -20,7 +20,7 @@ Upload existing materials such as proposals, evaluations, budgets, monitoring da
 
 ## Product Spine
 
-The visible product spine is the guided SROI journey:
+The visible product spine is a guided impact decision journey. The Impact Account is the default executive view; SROI appears only as governed method context after eligibility, stakeholder legitimacy, harm review, proxy quality, counterfactual credibility, and reporting intent are reviewed.
 
 1. Scope
 2. People Affected
@@ -28,7 +28,7 @@ The visible product spine is the guided SROI journey:
 4. Evidence
 5. Valuation
 6. Impact Adjustments
-7. SROI
+7. Governed Method Context
 8. Sensitivity
 9. Decision
 10. Report
@@ -37,7 +37,7 @@ Each step must show why it matters, what is complete, what evidence is available
 
 ## Differentiation
 
-ImpactPulse combines SVI-guided SROI, evidence quality, assumptions, SDG target mapping, comparable projects, portfolio intelligence, live collaboration, and assurance readiness. The advantage is the governed impact graph connecting evidence, people affected, outcomes, value, assumptions, SDGs, delivery, decisions, and learning.
+ImpactPulse combines SVI-guided SROI where appropriate, method selection, evidence quality, assumptions, SDG target mapping, comparable projects, portfolio intelligence, live collaboration, and assurance readiness. The advantage is the governed impact graph connecting evidence, people affected, outcomes, value, assumptions, SDGs, delivery, decisions, and learning.
 
 ## Phase 1 Focus
 

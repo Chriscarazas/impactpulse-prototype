@@ -1,6 +1,6 @@
 # ImpactPulse Prototype
 
-ImpactPulse is a social-impact measurement and SROI decision platform. This prototype now has a route-driven product spine: governance docs, design-system tokens, shared demo data, representative SROI and evidence screens, Upload-to-First-Insight, and automated visual/accessibility review.
+ImpactPulse is a social-impact measurement and decision platform. This prototype now has a route-driven product spine: governance docs, design-system tokens, shared demo data, an Impact Account default view, governed SROI method context, evidence screens, Upload-to-First-Insight, and automated visual/accessibility review.
 
 ## Current Stack
 
@@ -21,7 +21,7 @@ pnpm start
 
 Then open:
 
-- `http://127.0.0.1:4173` for SROI Results
+- `http://127.0.0.1:4173` for the Impact Account
 - `http://127.0.0.1:4173/quick-start/` for Upload to First Insight
 - `http://127.0.0.1:4173/evidence/` for Evidence Review Queue
 - `http://127.0.0.1:4173/outcomes/` for the backend-aware Outcomes workspace

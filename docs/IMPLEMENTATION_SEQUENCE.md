@@ -13,11 +13,12 @@
 - Decision log
 - Centralized design tokens
 
-## Priority 2: Pilot Page
+## Priority 2: Legacy Pilot Page
 
-- Build SROI Results as the representative page.
-- Include project context, step rail, headline SROI, evidence quality, sensitivity, assumptions, SDG claims, and next actions.
+- Build the first representative analytical page.
+- Include project context, step rail, governed method context, evidence quality, sensitivity, assumptions, SDG claims, and next actions.
 - Add challenge workflow before approval.
+- Superseded by Priority 10 for fortified-roadmap work: Impact Account is now the default decision surface.
 
 ## Priority 3: Review Automation
 
@@ -72,3 +73,17 @@ Build `/outcomes/` as the first backend-aware workspace. It should connect stake
 - Add Supabase Auth and organization onboarding.
 - Create membership invitation and role management flows.
 - Preserve audit events for evidence, assumptions, approvals, and report snapshots.
+
+## Priority 10: Impact Account Default and SROI Safety Baseline
+
+- Implement the first fortified-roadmap migration phase without deleting current functionality or data.
+- Make `/` an Impact Account default view.
+- Reframe `/portfolio/` as an Organization Impact Account.
+- Reframe `/valuation/` as the Method and Valuation Gate.
+- Reframe `/assurance/` as a multidimensional Assurance Matrix.
+- Add visible safeguards for SROI eligibility, stakeholder legitimacy, harm review, proxy quality, benchmark comparability, and intended use.
+- Keep SROI visible only as exploratory governed method context until eligibility review is complete.
+- Add feature flags for the reversible UI migration.
+- Add a methodology safety check to prevent unsupported ratio-led copy and route regressions.
+- No database migration is required for this non-destructive migration phase.
+- Rollback by restoring the previous `/` renderer and disabling the new methodology feature flags while preserving Supabase data and migrations.

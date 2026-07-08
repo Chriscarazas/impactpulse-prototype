@@ -6,10 +6,14 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "start": "node scripts/serve.mjs",
+    "lint": "node --check src/app.js && node --check src/backend/supabase.js && node --check scripts/serve.mjs && node --check scripts/design-audit.mjs && node --check scripts/methodology-safety-check.mjs",
+    "test": "node scripts/methodology-safety-check.mjs",
+    "test:methodology": "node scripts/methodology-safety-check.mjs",
     "design:audit": "node scripts/design-audit.mjs",
     "test:visual": "node scripts/design-audit.mjs --visual-only",
     "test:accessibility": "node scripts/design-audit.mjs --accessibility-only",
-    "quality": "node scripts/design-audit.mjs"
+    "build": "node --check src/app.js && node --check src/backend/supabase.js && node --check scripts/serve.mjs && node --check scripts/design-audit.mjs && node --check scripts/methodology-safety-check.mjs",
+    "quality": "node scripts/methodology-safety-check.mjs && node scripts/design-audit.mjs"
   },
   "devDependencies": {
     "playwright": "^1.61.1"

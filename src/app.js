@@ -23,6 +23,68 @@ const demoProject = {
   confidence: "Moderate"
 };
 
+const methodologyFeatureFlags = {
+  impactAccountDefault: true,
+  sroiSafetyBaseline: true,
+  sroiRequiresEligibility: true,
+  sroiComparisonBlocked: true,
+  benchmarkEligibilityRequired: true,
+  eligibilityDowngradeRequired: true,
+  proxyQualityGateRequired: true,
+  stakeholderLegitimacyRequired: true,
+  harmReviewRequired: true,
+  assuranceMatrixRequired: true
+};
+
+const methodologySafety = {
+  sroiEligibility: {
+    label: "SROI eligibility not assessed",
+    status: "Exploratory Only",
+    detail:
+      "Exploratory demo only - SROI eligibility has not been assessed. Use the Impact Account for decision review until the gate is complete."
+  },
+  stakeholderLegitimacy: {
+    label: "Stakeholder legitimacy not assessed",
+    detail: "Stakeholder universe, representation gaps, consent, and community validation are not complete."
+  },
+  harmReview: {
+    label: "Harm review incomplete",
+    detail: "Negative and unintended outcomes are visible but have not passed a mandatory harm and disbenefit review."
+  },
+  benchmarkEligibility: {
+    label: "Benchmark comparability not assessed",
+    detail: "SROI must not be compared across projects until boundaries, stakeholders, outcomes, periods, methods, proxies, and evidence maturity are aligned."
+  },
+  reportingGuard: {
+    label: "Not for public reporting",
+    detail:
+      "SROI may be explored internally, but it must not be used for public reporting, benchmark comparison, allocation optimization, or assurance-ready claims."
+  }
+};
+
+const impactAccountSections = [
+  ["Outcomes", "4 material outcomes tracked; 1 negative effect remains under review."],
+  ["People affected", "820 enrolled participants, with rural participants underrepresented in follow-up evidence."],
+  ["Harms and disbenefits", "Transport burden is material and cannot be netted out by positive value."],
+  ["Equity status", "Rural access gap blocks stronger equity and SDG 10.2 language."],
+  ["Evidence distribution", "74% reviewed coverage; follow-up and investment boundary conflicts remain open."],
+  ["Total investment", "$1.2M cash boundary, with donated facilities still unresolved."],
+  ["Uncertainty status", "Central case is draft; conservative case and switching values are required before publication."],
+  ["Unmonetized material outcomes", "Confidence, transport burden, and employer context stay visible outside monetized value."],
+  ["Reporting period", demoProject.period],
+  ["Decision implication", "Use the contribution narrative for internal planning; hold public SROI claims."]
+];
+
+const sroiEligibilityCriteria = [
+  ["Outcome materiality", "Partial", "Material outcomes are identified, but transport burden requires review."],
+  ["Stakeholder legitimacy", "Not assessed", "Representation, consent, dissent, and community validation are incomplete."],
+  ["Evidence sufficiency", "Premature", "Six-month follow-up and rural response coverage are not strong enough for a decision-grade ratio."],
+  ["Counterfactual credibility", "Premature", "Deadweight and attribution rely on draft comparator assumptions."],
+  ["Proxy quality", "Needs review", "The wage proxy is approved locally; other lower-grade proxies need transferability review."],
+  ["Negative outcomes", "Incomplete", "Harm review must be finished before high confidence or assurance-ready language."],
+  ["Benchmark comparability", "Not assessed", "Comparable cohorts are not yet eligible for SROI comparison."]
+];
+
 const demoStakeholders = [
   {
     id: "00000000-0000-4000-8000-000000000201",
@@ -169,13 +231,13 @@ const sroiSteps = [
 const routeDefinitions = [
   {
     path: "/",
-    nav: "Projects",
-    title: "SROI Results",
-    kicker: "SROI Results",
-    activeStep: 7,
-    lead: "Estimated social value, evidence strength, and next decision for a multi-site workforce-development program.",
-    action: "Request approval",
-    view: "sroi"
+    nav: "Impact Account",
+    title: "Impact Account",
+    kicker: "Impact Account default view",
+    activeStep: null,
+    lead: "Decision account for outcomes, people affected, evidence, uncertainty, harms, unmonetized value, and next action before any SROI ratio is used.",
+    action: "Review account",
+    view: "impactAccount"
   },
   {
     path: "/quick-start/",
@@ -193,7 +255,7 @@ const routeDefinitions = [
     title: "Evidence Review Queue",
     kicker: "Evidence Review Queue",
     activeStep: 4,
-    lead: "Review the sources and extracted claims that feed outcomes, assumptions, SDG mappings, and the 3.9x SROI result.",
+    lead: "Review the sources and extracted claims that feed outcomes, assumptions, SDG mappings, Impact Account sections, and exploratory SROI context.",
     action: "Assign evidence tasks",
     view: "evidence"
   },
@@ -203,7 +265,7 @@ const routeDefinitions = [
     title: "Data Quality Overview",
     kicker: "Measurement trust",
     activeStep: 4,
-    lead: "Profile sufficiency, conflicts, coverage, gaps, and treatments before evidence can drive SROI or assurance claims.",
+    lead: "Profile sufficiency, conflicts, coverage, gaps, and treatments before evidence can drive method context or assurance claims.",
     action: "Create collection plan",
     view: "dataQuality",
     capabilities: ["Quality profile", "Conflict queue", "Gap prioritization", "Treatment log"],
@@ -224,13 +286,14 @@ const routeDefinitions = [
   {
     path: "/valuation/",
     nav: "Valuation",
-    title: "Financial Proxy Workspace",
-    kicker: "Value method",
+    title: "Method and Valuation Gate",
+    kicker: "Governed method",
     activeStep: 5,
-    lead: "Select, localize, justify, and approve financial proxies before social value can be calculated.",
-    action: "Approve proxy set",
-    capabilities: ["Proxy search", "Price year", "Localization", "Approval trail"],
-    nextBuild: "Add proxy comparison and Value Map reconciliation."
+    lead: "Confirm the method, SROI eligibility, proxy quality, and intended use before monetized value shapes a decision.",
+    action: "Review method",
+    view: "methodGate",
+    capabilities: ["Method selection", "SROI eligibility", "Proxy quality gate", "Intended-use guard"],
+    nextBuild: "Add method-selection rules, SROI eligibility criteria, and proxy governance before deeper valuation."
   },
   {
     path: "/assumptions/",
@@ -265,13 +328,14 @@ const routeDefinitions = [
   {
     path: "/portfolio/",
     nav: "Portfolio",
-    title: "Organization Impact Overview",
-    kicker: "Portfolio intelligence",
+    title: "Organization Impact Account",
+    kicker: "Impact Account default view",
     activeStep: null,
-    lead: "Aggregate projects by country, theme, funder, or portfolio without double counting reach, outcomes, investment, or value.",
+    lead: "Summarize outcomes, people affected, evidence strength, uncertainty, harms, unmonetized value, and decision implications without ratio-led comparison.",
     action: "Review portfolio",
-    capabilities: ["Coverage disclosure", "Aggregate SROI", "Evidence-adjusted result", "Theme and country drill-down"],
-    nextBuild: "Use approved project data to create trustworthy organization-level impact views."
+    view: "impactAccount",
+    capabilities: ["Coverage disclosure", "Impact Account", "Evidence distribution", "Theme and country drill-down"],
+    nextBuild: "Use approved project data to create trustworthy organization-level Impact Accounts."
   },
   {
     path: "/benchmarks/",
@@ -279,8 +343,9 @@ const routeDefinitions = [
     title: "Benchmark Cohort Builder",
     kicker: "Comparable evidence",
     activeStep: null,
-    lead: "Construct defensible peer cohorts and block comparisons when methods, populations, outcomes, or evidence maturity are misaligned.",
+    lead: "Construct defensible peer cohorts and block SROI comparison when methods, populations, outcomes, boundaries, or evidence maturity are misaligned.",
     action: "Build cohort",
+    view: "benchmarks",
     capabilities: ["Similarity", "Comparability", "Transferability", "No-match state"],
     nextBuild: "Let users widen or narrow cohorts and see the effect on comparability."
   },
@@ -298,13 +363,14 @@ const routeDefinitions = [
   {
     path: "/assurance/",
     nav: "Assurance",
-    title: "Assurance Readiness",
+    title: "Assurance Matrix",
     kicker: "Verification",
     activeStep: 10,
-    lead: "Separate methodology readiness, technical reproducibility, evidence sufficiency, report disclosure, and external assurance status.",
+    lead: "Separate principles alignment, stakeholder engagement, data verification, calculation reproduction, proxy review, causal design, privacy, ethics, report assurance, and external review.",
     action: "Create remediation plan",
-    capabilities: ["SVI principles", "Technical checks", "Frozen snapshot", "Assurance package"],
-    nextBuild: "Turn readiness gaps into assigned remediation tasks."
+    view: "assurance",
+    capabilities: ["SVI principles", "Evidence checks", "Calculation reproduction", "Independent review"],
+    nextBuild: "Turn each assurance dimension into assigned remediation tasks without implying a single badge covers all verification."
   }
 ];
 
@@ -419,8 +485,8 @@ function renderHeader(route) {
 
 function renderStepRail(route) {
   return `
-    <aside class="side-rail" aria-label="Guided SROI process">
-      <p class="rail-title">Guided SROI</p>
+    <aside class="side-rail" aria-label="Guided impact decision process">
+      <p class="rail-title">Guided analysis</p>
       <ol class="step-list">
         ${sroiSteps
           .map((step, index) => {
@@ -444,7 +510,7 @@ function renderStepRail(route) {
       <div class="route-mini-map">
         <p class="rail-title">Build Map</p>
         <a href="${routeHref("/quick-start/")}">Upload flow</a>
-        <a href="${routeHref("/portfolio/")}">Portfolio</a>
+        <a href="${routeHref("/portfolio/")}">Impact Account</a>
         <a href="${routeHref("/benchmarks/")}">Benchmarks</a>
         <a href="${routeHref("/sdg/")}">SDG claims</a>
       </div>
@@ -462,7 +528,7 @@ function renderProjectHeader(route) {
           <p class="lead">${route.lead}</p>
         </div>
         <a class="button ghost" href="${route.path === "/" ? routeHref("/quick-start/") : routeHref("/")}">${
-          route.path === "/" ? "Start upload flow" : "Return to SROI results"
+          route.path === "/" ? "Start upload flow" : "Return to Impact Account"
         }</a>
       </div>
       <dl class="meta-grid" aria-label="Project context">
@@ -475,29 +541,197 @@ function renderProjectHeader(route) {
   `;
 }
 
+function renderSafetyBanner() {
+  return `
+    <section class="safety-banner" aria-labelledby="safety-title">
+      <div>
+        <p class="project-kicker">Fortified methodology safety baseline</p>
+        <h2 id="safety-title">SROI is exploratory until eligibility is reviewed</h2>
+        <p>${methodologySafety.reportingGuard.detail}</p>
+      </div>
+      <div class="status-row" aria-label="Methodology guard status">
+        ${status(methodologySafety.sroiEligibility.label, "risk")}
+        ${status(methodologySafety.stakeholderLegitimacy.label, "review")}
+        ${status(methodologySafety.harmReview.label, "review")}
+        ${status(methodologySafety.benchmarkEligibility.label, "risk")}
+        ${status(methodologySafety.reportingGuard.label, "risk")}
+      </div>
+    </section>
+  `;
+}
+
+function renderFeatureFlagPanel() {
+  return `
+    <section class="panel" aria-labelledby="flags-title">
+      <div class="section-header">
+        <div>
+          <h2 id="flags-title">Methodology feature flags</h2>
+          <p>Flags make the safety baseline reversible while preserving existing demo behavior.</p>
+        </div>
+        ${status("Feature flags active", "verified")}
+      </div>
+      <dl class="flag-list">
+        ${Object.entries(methodologyFeatureFlags)
+          .map(([key, enabled]) => `<div><dt>${formatLabel(key)}</dt><dd>${enabled ? "Enabled" : "Disabled"}</dd></div>`)
+          .join("")}
+      </dl>
+    </section>
+  `;
+}
+
+function renderImpactAccountOverview() {
+  return `
+    ${renderSafetyBanner()}
+    <section class="section" aria-labelledby="account-title">
+      <div class="account-hero">
+        <div>
+          <p class="project-kicker">Impact Account default view</p>
+          <h2 id="account-title">Decision account before monetized claims</h2>
+          <p class="lead">This view leads with outcomes, people affected, evidence strength, harms, equity, uncertainty, unmonetized value, costs, and the next decision. SROI appears only as governed method context when eligible.</p>
+          <div class="status-row" aria-label="Impact Account status">
+            ${status("Impact Account default view", "verified")}
+            ${status(`SROI status: ${methodologySafety.sroiEligibility.status}`, "review")}
+            ${status(methodologySafety.reportingGuard.label, "risk")}
+          </div>
+        </div>
+        <dl class="account-metrics" aria-label="Impact Account summary">
+          <div><dt>Material outcomes</dt><dd><strong>4</strong><span>1 negative effect under review</span></dd></div>
+          <div><dt>People affected</dt><dd><strong>820</strong><span>Rural sample incomplete</span></dd></div>
+          <div><dt>Evidence coverage</dt><dd><strong>${demoProject.coverage}</strong><span>Internal planning only</span></dd></div>
+          <div><dt>Total investment</dt><dd><strong>${demoProject.investment}</strong><span>Boundary conflict open</span></dd></div>
+        </dl>
+      </div>
+    </section>
+    <div class="content-grid">
+      <div class="main">
+        <section class="section" aria-labelledby="account-sections-title">
+          <div class="section-header">
+            <div>
+              <h2 id="account-sections-title">Impact Account sections</h2>
+              <p>Every section stays visible even when monetization is premature.</p>
+            </div>
+          </div>
+          <div class="account-section-grid">
+            ${impactAccountSections
+              .map(([label, text]) => `<article class="account-section"><span>${label}</span><p>${text}</p></article>`)
+              .join("")}
+          </div>
+        </section>
+        ${renderSroiEligibilitySnapshot()}
+        ${renderValueBridge()}
+      </div>
+      <aside class="panel-stack" aria-label="Impact Account governance">
+        ${renderFeatureFlagPanel()}
+        ${renderAssumptionPanel()}
+        ${renderDecisionPanel()}
+      </aside>
+    </div>
+  `;
+}
+
+function renderSroiEligibilitySnapshot() {
+  return `
+    <section class="section" aria-labelledby="eligibility-title">
+      <div class="section-header">
+        <div>
+          <h2 id="eligibility-title">SROI eligibility snapshot</h2>
+          <p>${methodologySafety.sroiEligibility.detail}</p>
+        </div>
+        ${status(methodologySafety.sroiEligibility.status, "review")}
+      </div>
+      <div class="eligibility-grid">
+        ${sroiEligibilityCriteria
+          .map(
+            ([criterion, finding, detail]) => `
+              <article class="eligibility-item">
+                <span>${criterion}</span>
+                <strong>${finding}</strong>
+                <p>${detail}</p>
+              </article>`
+          )
+          .join("")}
+      </div>
+      <div class="callout risk-callout">
+        <strong>Downgrade rule</strong>
+        SROI downgraded to Exploratory Only until stakeholder legitimacy, harm review, proxy quality, counterfactual credibility, and reporting intent pass review.
+      </div>
+    </section>
+  `;
+}
+
+function renderMethodSelectionWorkspace() {
+  return `
+    <div class="content-grid">
+      <section class="section" aria-labelledby="method-title">
+        <div class="section-header">
+          <div>
+            <h2 id="method-title">Method selection before monetization</h2>
+            <p>The current decision needs a contribution account first. A decision-grade SROI ratio is premature because core eligibility criteria are incomplete.</p>
+          </div>
+          ${status("Recommended method: Contribution Account", "verified")}
+        </div>
+        <div class="method-grid">
+          ${[
+            ["Contribution Account", "Recommended", "Outcome measurement, stakeholder evidence, assumptions, evidence gaps, and decision implications without a public monetary ratio."],
+            ["Decision SROI", "Premature", "Requires approved proxies, counterfactual method, harm review, complete lineage, and internal methodological review."],
+            ["Cost-consequence analysis", "Alternative", "Useful if stakeholders need outcomes, costs, equity, and harms side by side without monetizing every material outcome."],
+            ["Multi-criteria decision analysis", "Later", "Useful for allocation only after rights, equity, geography, capacity, and irreversibility constraints are defined."]
+          ]
+            .map(
+              ([method, finding, detail]) => `
+                <article class="method-card">
+                  <span>${finding}</span>
+                  <h3>${method}</h3>
+                  <p>${detail}</p>
+                </article>`
+            )
+            .join("")}
+        </div>
+        ${renderSroiEligibilitySnapshot()}
+      </section>
+      <aside class="panel-stack" aria-label="Methodology controls">
+        <section class="panel" aria-labelledby="method-controls-title">
+          <div class="section-header">
+            <div>
+              <h2 id="method-controls-title">Method controls</h2>
+              <p>These controls prevent premature monetization from becoming a decision-grade claim.</p>
+            </div>
+          </div>
+          <ul class="task-list">
+            <li class="task"><strong>Causal claim ladder</strong><span>Current language: Plausible Contribution. Stronger causal language is blocked.</span>${status("Guarded", "review")}</li>
+            <li class="task"><strong>Proxy quality gate</strong><span>Lower-grade or unreviewed proxies must be shown separately from approved local value.</span>${status("Needs review", "review")}</li>
+            <li class="task"><strong>Intended use: internal planning</strong><span>Public reporting, benchmark comparison, allocation optimization, and assurance-ready claims are blocked.</span>${status("Blocked", "risk")}</li>
+          </ul>
+        </section>
+        ${renderFeatureFlagPanel()}
+      </aside>
+    </div>
+  `;
+}
+
 function renderSroiResults() {
   return `
     <section class="section" aria-labelledby="result-title">
       <div class="result-hero">
         <div>
-          <h2 id="result-title">Estimated social value result</h2>
+          <h2 id="result-title">Exploratory SROI method context</h2>
           <p class="result-number">3.9<small>x</small></p>
-          <p class="result-summary">$3.90 of estimated social value for every $1 invested, with a plausible range from ${demoProject.range}.</p>
+          <p class="result-summary">$3.90 of estimated social value for every $1 invested, with a plausible range from ${demoProject.range}. This is method context inside the Impact Account, not a publishable SROI claim.</p>
           <div class="status-row" aria-label="Result status">
-            ${status("Estimated result", "estimated")}
-            ${status("Moderate confidence", "review")}
-            ${status("Human-reviewed model", "approved")}
+            ${status("Exploratory result", "estimated")}
+            ${status(methodologySafety.sroiEligibility.label, "risk")}
+            ${status(methodologySafety.reportingGuard.label, "risk")}
           </div>
           <div class="callout">
             <strong>Recommended next decision</strong>
-            Approve the analysis for internal planning only after the transport-barrier assumption and six-month employment duration evidence are reviewed.
+            Use the Impact Account and contribution narrative for internal planning only after the transport-barrier assumption and six-month employment duration evidence are reviewed.
           </div>
         </div>
         <dl class="metrics" aria-label="SROI metrics">
           <div class="metric"><dt>Investment</dt><dd><strong>${demoProject.investment}</strong></dd></div>
-          <div class="metric"><dt>Estimated social value</dt><dd><strong>${demoProject.socialValue}</strong></dd></div>
+          <div class="metric"><dt>Exploratory social value</dt><dd><strong>${demoProject.socialValue}</strong></dd></div>
           <div class="metric"><dt>Net present value</dt><dd><strong>$3.5M</strong></dd></div>
-          <div class="metric"><dt>Probability above 1.0x</dt><dd><strong>91%</strong></dd></div>
+          <div class="metric"><dt>Eligibility status</dt><dd><strong>${methodologySafety.sroiEligibility.status}</strong></dd></div>
           <div class="metric"><dt>Evidence coverage</dt><dd><strong>${demoProject.coverage}</strong></dd></div>
         </dl>
       </div>
@@ -506,7 +740,7 @@ function renderSroiResults() {
       <div class="main">
         ${renderValueBridge()}
         ${renderAssumptionsLab(true)}
-        ${renderStateGrid("Required product states", "The pilot defines how SROI Results behaves when evidence is not ready.")}
+        ${renderStateGrid("Required product states", "The pilot defines how exploratory SROI context behaves when evidence is not ready.")}
       </div>
       <aside class="panel-stack" aria-label="Review and decision panels">
         ${renderAssumptionPanel()}
@@ -522,10 +756,10 @@ function renderValueBridge() {
     <section class="section chart-block" aria-labelledby="bridge-title">
       <div class="section-header">
         <div>
-          <h2 id="bridge-title">Gross-to-net value bridge</h2>
-          <p>The largest uncertainty is whether transport barriers reduce sustained employment for rural participants.</p>
+          <h2 id="bridge-title">Exploratory value bridge</h2>
+          <p>The largest uncertainty is whether transport barriers reduce sustained employment for rural participants. This bridge remains internal method context until eligibility review is complete.</p>
         </div>
-        ${status("Traceable", "verified")}
+        ${status("Exploratory Only", "review")}
       </div>
       <svg class="bridge-chart" viewBox="0 0 820 320" role="img" aria-labelledby="bridge-svg-title bridge-svg-desc">
         <title id="bridge-svg-title">Social value bridge from gross value to net value</title>
@@ -601,7 +835,7 @@ function renderEvidenceReview() {
         <div class="section-header">
           <div>
             <h2 id="claim-title">Extracted claim review</h2>
-            <p>Accept, edit, reject, or assign claims before they can shape SROI, SDG, benchmark, or report language.</p>
+            <p>Accept, edit, reject, or assign claims before they can shape method context, SDG, benchmark, or report language.</p>
           </div>
         </div>
         <div class="evidence-toolbar" aria-label="Evidence filters">
@@ -621,8 +855,8 @@ function renderEvidenceReview() {
               ${[
                 ["approved", "820 enrolled participants", "Unique records after duplicate check.", "Monitoring dataset", "Approved", "approved", "Reach, cost per participant", "Lineage", "secondary"],
                 ["approved", "704 completed training", "Completion counted after attendance and assessment threshold.", "Monitoring dataset", "Approved", "approved", "Outcome rate, SDG 4.4", "Lineage", "secondary"],
-                ["needs-review", "351 sustained employment outcomes", "Follow-up coverage is 62%; rural response rate is lower.", "Monitoring dataset", "Needs review", "review", "SROI range, confidence, report disclosure", "Assign", "primary"],
-                ["conflict", "$1.2M investment boundary", "Finance export excludes donated facilities; proposal includes them.", "Budget and proposal", "Conflict", "risk", "Central SROI, NPV, benchmark comparability", "Resolve", "primary"],
+                ["needs-review", "351 sustained employment outcomes", "Follow-up coverage is 62%; rural response rate is lower.", "Monitoring dataset", "Needs review", "review", "Method eligibility, confidence, report disclosure", "Assign", "primary"],
+                ["conflict", "$1.2M investment boundary", "Finance export excludes donated facilities; proposal includes them.", "Budget and proposal", "Conflict", "risk", "Investment boundary, NPV, benchmark comparability", "Resolve", "primary"],
                 ["needs-review", "Transport is a material rural barrier", "Interview evidence indicates lower completion, but sample is small.", "Stakeholder interviews", "Needs review", "review", "Equity, SDG 10.2, next action", "Request", "primary"],
                 ["approved", "Wage progression proxy", "Local wage proxy approved for 2025 price year.", "Valuation library", "Verified source", "verified", "Gross value, social value bridge", "Lineage", "secondary"]
               ]
@@ -692,7 +926,7 @@ function renderQuickStart() {
             <li><strong>1. Connect</strong><span>Upload or select sample workspace.</span></li>
             <li><strong>2. Store</strong><span>Create private evidence object and source metadata.</span></li>
             <li><strong>3. Review</strong><span>Accept, edit, reject, or assign evidence tasks.</span></li>
-            <li><strong>4. Decide</strong><span>Move into SROI, sensitivity, and report workflows.</span></li>
+            <li><strong>4. Decide</strong><span>Move into Impact Account, sensitivity, and report workflows.</span></li>
           </ol>
         </div>
       </div>
@@ -710,7 +944,7 @@ function renderQuickStart() {
           ["People affected", "820 enrolled, 704 completed, 468 entered employment, 351 sustained employment for six months."],
           ["Candidate outcomes", "Employment entry, sustained earnings, improved confidence, reduced benefit dependence, and rural access barriers."],
           ["Evidence gaps", "Six-month follow-up coverage, transport barrier validation, donated facilities investment boundary."],
-          ["Comparable evidence", "Six internal and public workforce projects can inform priors, but only three are SROI-comparable."],
+          ["Comparable evidence", "Six internal and public workforce projects can inform priors, but SROI comparison stays blocked until comparability review is complete."],
           ["SDG suggestions", "Target 8.5 measured contribution, Target 4.4 contributes to, Target 10.2 needs review."],
           ["Next action", "Send the evidence review queue to M&E and finance before publishing any result."]
         ]
@@ -847,7 +1081,7 @@ function renderOutcomesWorkspace() {
           <div class="section-header">
             <div>
               <h2 id="outcome-tasks-title">Outcome review queue</h2>
-              <p>Tasks are ranked by materiality, SROI effect, confidence effect, and participant burden.</p>
+              <p>Tasks are ranked by materiality, method effect, confidence effect, and participant burden.</p>
             </div>
           </div>
           <ol class="priority-list" data-outcome-task-list>
@@ -931,13 +1165,13 @@ function renderDecisionRoom() {
         <div class="section-header">
           <div>
             <h2 id="decision-options-title">Decision options</h2>
-            <p>Each option carries evidence, SROI effect, risk, equity, dissent, and next owner.</p>
+            <p>Each option carries evidence, method eligibility, risk, equity, dissent, and next owner.</p>
           </div>
           ${status("Decision draft", "review")}
         </div>
         <div class="option-grid">
           ${[
-            ["Approve internal planning case", "Use 3.9x central case, hold public claims, fund transport evidence task.", "Recommended"],
+            ["Approve internal planning case", "Use the Impact Account contribution narrative, keep exploratory SROI internal, and fund the transport evidence task.", "Recommended"],
             ["Delay decision", "Wait for six-month follow-up and finance boundary resolution before any action.", "Lower risk"],
             ["Scale with condition", "Expand to one additional site only if rural transport mitigation is funded.", "Conditional"]
           ]
@@ -965,8 +1199,8 @@ function renderReports() {
       </div>
       <div class="insight-grid">
         ${[
-          ["Executive brief", "Decision, central result, range, confidence, major assumptions, and required action."],
-          ["Technical SROI report", "Value map, evidence lineage, adjustments, sensitivity, and calculation version."],
+          ["Executive brief", "Decision, Impact Account status, confidence, major assumptions, and required action."],
+          ["Technical SROI appendix", "Exploratory value map, eligibility gaps, evidence lineage, adjustments, sensitivity, and calculation version."],
           ["Assurance package", "Frozen data, source registry, proxy approvals, methodology checklist, and gaps."],
           ["Community summary", "Plain-language outcomes, stakeholder validation, limitations, harms, and next steps."]
         ]
@@ -984,7 +1218,7 @@ function renderDataQuality() {
       <div class="section-header">
         <div>
           <h2 id="quality-title">Evidence quality profile</h2>
-          <p>Quality is evaluated before evidence can change SROI, confidence, SDG language, benchmark eligibility, or report readiness.</p>
+          <p>Quality is evaluated before evidence can change method eligibility, confidence, SDG language, benchmark eligibility, or report readiness.</p>
         </div>
         ${status("Developing", "review")}
       </div>
@@ -1032,7 +1266,7 @@ function renderDataQuality() {
               <tr>
                 <td><strong>Completeness</strong>${status("Needs review", "review")}</td>
                 <td>Six-month follow-up covers 62% of sustained employment claim.</td>
-                <td>SROI range, confidence, report disclosure.</td>
+                <td>Method eligibility, confidence, report disclosure.</td>
                 <td>Collect missing follow-up or apply conservative case.</td>
                 <td>M&E</td>
               </tr>
@@ -1047,7 +1281,7 @@ function renderDataQuality() {
                 <td><strong>Validity</strong>${status("Conflict", "risk")}</td>
                 <td>Budget export and proposal disagree on donated facilities.</td>
                 <td>Investment boundary, NPV, benchmark comparability.</td>
-                <td>Finance and SROI practitioner must record boundary decision.</td>
+                <td>Finance and methodology reviewer must record boundary decision.</td>
                 <td>Finance</td>
               </tr>
               <tr>
@@ -1074,7 +1308,7 @@ function renderDataQuality() {
           <div class="section-header">
             <div>
               <h2 id="collection-title">Collection plan</h2>
-              <p>Prioritized by materiality, SROI effect, confidence effect, effort, and participant burden.</p>
+              <p>Prioritized by materiality, method effect, confidence effect, effort, and participant burden.</p>
             </div>
           </div>
           <ol class="priority-list">
@@ -1110,7 +1344,7 @@ function renderDataQuality() {
       <div class="treatment-timeline">
         ${[
           ["Conservative case applied", "Sustained employment uses central case but report displays low case until follow-up improves."],
-          ["Conflict frozen", "Investment boundary cannot update SROI until finance review records the treatment."],
+          ["Conflict frozen", "Investment boundary cannot update the value bridge until finance review records the treatment."],
           ["Equity claim held", "Rural transport finding can guide action but cannot become a measured equity claim yet."],
           ["Lineage preserved", "Monitoring transformations remain traceable in the evidence graph and report appendix."]
         ]
@@ -1185,17 +1419,100 @@ function renderAppMap() {
   `;
 }
 
+function renderBenchmarksWorkspace() {
+  return `
+    ${renderSafetyBanner()}
+    <div class="content-grid">
+      <section class="section" aria-labelledby="benchmark-title">
+        <div class="section-header">
+          <div>
+            <h2 id="benchmark-title">Benchmark comparability gate</h2>
+            <p>Benchmarking can support learning, but SROI comparison is blocked until the cohort is comparable across boundaries, stakeholders, outcomes, evidence maturity, periods, methods, and proxy quality.</p>
+          </div>
+          ${status(methodologySafety.benchmarkEligibility.label, "risk")}
+        </div>
+        <div class="method-grid">
+          ${[
+            ["Same population", "Partial", "Adult workforce participants match broadly; rural access mix differs."],
+            ["Same outcome set", "Needs review", "Employment and wage progression align, but transport burden is missing in two peer records."],
+            ["Same cost boundary", "Blocked", "Donated facilities treatment is unresolved for the current project."],
+            ["Same evidence maturity", "Blocked", "Follow-up coverage and stakeholder validation are weaker than the proposed peers."],
+            ["Same valuation basis", "Needs review", "Proxy source, price year, transferability, and lower-grade proxy treatment must be normalized."],
+            ["Same reporting intent", "Blocked", "Public ratio comparison is not allowed while SROI remains Exploratory Only."]
+          ]
+            .map(
+              ([criterion, finding, detail]) => `
+                <article class="method-card">
+                  <span>${finding}</span>
+                  <h3>${criterion}</h3>
+                  <p>${detail}</p>
+                </article>`
+            )
+            .join("")}
+        </div>
+        <div class="callout risk-callout">
+          <strong>Benchmark rule</strong>
+          Do not rank, average, or compare SROI ratios across projects until the comparability gate is complete. Show peer evidence as context only.
+        </div>
+      </section>
+      <aside class="panel-stack" aria-label="Benchmark governance">
+        ${renderFeatureFlagPanel()}
+        ${renderDownstreamPanel()}
+      </aside>
+    </div>
+  `;
+}
+
+function renderAssuranceMatrix() {
+  return `
+    <div class="content-grid">
+      <section class="section" aria-labelledby="assurance-title">
+        <div class="section-header">
+          <div>
+            <h2 id="assurance-title">Assurance readiness matrix</h2>
+            <p>Assurance is not a single badge. Each dimension keeps its own evidence, reviewer, treatment, and blocked claim.</p>
+          </div>
+          ${status("Assurance matrix required", "review")}
+        </div>
+        <div class="eligibility-grid">
+          ${[
+            ["Principles alignment", "Needs review", "SVI principles are mapped, but materiality and valuation exclusions need reviewer sign-off."],
+            ["Stakeholder engagement", "Blocked", methodologySafety.stakeholderLegitimacy.detail],
+            ["Data verification", "Partial", "Monitoring lineage is traceable; follow-up coverage and rural interviews remain incomplete."],
+            ["Calculation reproduction", "Exploratory", "The value bridge is visible, but SROI cannot be treated as decision-grade yet."],
+            ["Proxy review", "Needs review", "Approved wage proxy is separated from lower-grade proxies pending transferability review."],
+            ["Report assurance", "Blocked", methodologySafety.reportingGuard.detail]
+          ]
+            .map(
+              ([dimension, statusLabel, detail]) => `
+                <article class="eligibility-item">
+                  <span>${dimension}</span>
+                  <strong>${statusLabel}</strong>
+                  <p>${detail}</p>
+                </article>`
+            )
+            .join("")}
+        </div>
+      </section>
+      <aside class="panel-stack" aria-label="Assurance treatments">
+        ${renderSroiEligibilitySnapshot()}
+        ${renderDecisionPanel()}
+      </aside>
+    </div>
+  `;
+}
+
 function renderGapPanel() {
   return `
     <section class="panel" aria-labelledby="gap-title">
       <div class="section-header">
         <div>
           <h2 id="gap-title">Highest-value gaps</h2>
-          <p>Ranked by materiality, SROI effect, confidence effect, and decision value.</p>
+          <p>Ranked by materiality, method effect, confidence effect, and decision value.</p>
         </div>
       </div>
       <ol class="priority-list">
-        <li><span class="priority-rank">1</span><div><strong>Six-month employment follow-up</strong><p>Could move SROI from 3.9x to 3.2x and lower confidence by 12 points.</p></div></li>
+        <li><span class="priority-rank">1</span><div><strong>Six-month employment follow-up</strong><p>Could lower exploratory value, change method eligibility, and reduce confidence by 12 points.</p></div></li>
         <li><span class="priority-rank">2</span><div><strong>Transport-barrier validation</strong><p>Required before equity claim and SDG 10.2 language can be approved.</p></div></li>
         <li><span class="priority-rank">3</span><div><strong>Investment boundary decision</strong><p>Resolve donated facilities treatment before external comparison.</p></div></li>
       </ol>
@@ -1216,7 +1533,7 @@ function renderConflictPanel() {
         <dl>
           <div><dt>Budget export</dt><dd>$1.2M cash investment</dd></div>
           <div><dt>Proposal appendix</dt><dd>$1.36M including facilities</dd></div>
-          <div><dt>Required reviewer</dt><dd>Finance user and SROI practitioner</dd></div>
+          <div><dt>Required reviewer</dt><dd>Finance user and methodology reviewer</dd></div>
         </dl>
         <button class="button primary" type="button">Open resolution</button>
       </div>
@@ -1234,7 +1551,8 @@ function renderDownstreamPanel() {
         </div>
       </div>
       <ul class="task-list">
-        <li class="task"><strong>SROI Results</strong><span>Range, confidence, and recommendation remain draft.</span></li>
+        <li class="task"><strong>SROI eligibility</strong><span>Exploratory Only until stakeholder legitimacy, proxy quality, and harm review pass.</span>${status("Not for public reporting", "risk")}</li>
+        <li class="task"><strong>Impact Account</strong><span>Decision narrative can proceed with visible caveats and unmonetized outcomes.</span>${status("Internal planning", "approved")}</li>
         <li class="task"><strong>SDG claims</strong><span>Target 10.2 cannot move past Needs Review.</span></li>
         <li class="task"><strong>Assurance readiness</strong><span>Principles 1, 4, 5, and 6 have open gaps.</span></li>
       </ul>
@@ -1252,7 +1570,7 @@ function renderAssumptionPanel() {
         </div>
       </div>
       <ul class="task-list">
-        <li class="task"><strong>Transport barrier adjustment</strong><span>High SROI effect. Rural completion gap remains unresolved.</span>${status("Needs evidence", "review")}</li>
+        <li class="task"><strong>Transport barrier adjustment</strong><span>High method effect. Rural completion gap remains unresolved.</span>${status("Needs evidence", "review")}</li>
         <li class="task"><strong>Six-month employment persistence</strong><span>Follow-up sample covers 62% of sustained employment claim.</span>${status("Estimated", "estimated")}</li>
         <li class="task"><strong>Wage progression proxy</strong><span>Approved local proxy, price year 2025.</span>${status("Approved", "approved")}</li>
       </ul>
@@ -1341,6 +1659,10 @@ function renderDrawer(route) {
 }
 
 function renderRouteView(route) {
+  if (route.view === "impactAccount") return renderImpactAccountOverview();
+  if (route.view === "methodGate") return renderMethodSelectionWorkspace();
+  if (route.view === "benchmarks") return renderBenchmarksWorkspace();
+  if (route.view === "assurance") return renderAssuranceMatrix();
   if (route.view === "sroi") return renderSroiResults();
   if (route.view === "quickStart") return renderQuickStart();
   if (route.view === "evidence") return renderEvidenceReview();

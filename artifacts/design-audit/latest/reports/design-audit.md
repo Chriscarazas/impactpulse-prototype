@@ -1,10 +1,10 @@
 # ImpactPulse Design Audit
 
-Generated: 2026-07-07T12:49:38.605Z
+Generated: 2026-07-08T16:56:44.303Z
 
 ## Routes
 
-- sroi-results: /
+- impact-account: /
 - quick-start: /quick-start/
 - evidence-review: /evidence/
 - data-quality: /data-quality/
@@ -28,11 +28,11 @@ Generated: 2026-07-07T12:49:38.605Z
 
 ## Screenshots
 
-- .\artifacts\design-audit\latest\screenshots\sroi-results-desktop-wide-1440x1000.png
-- .\artifacts\design-audit\latest\screenshots\sroi-results-desktop-1280x800.png
-- .\artifacts\design-audit\latest\screenshots\sroi-results-tablet-768x1024.png
-- .\artifacts\design-audit\latest\screenshots\sroi-results-mobile-large-390x844.png
-- .\artifacts\design-audit\latest\screenshots\sroi-results-mobile-small-360x800.png
+- .\artifacts\design-audit\latest\screenshots\impact-account-desktop-wide-1440x1000.png
+- .\artifacts\design-audit\latest\screenshots\impact-account-desktop-1280x800.png
+- .\artifacts\design-audit\latest\screenshots\impact-account-tablet-768x1024.png
+- .\artifacts\design-audit\latest\screenshots\impact-account-mobile-large-390x844.png
+- .\artifacts\design-audit\latest\screenshots\impact-account-mobile-small-360x800.png
 - .\artifacts\design-audit\latest\screenshots\quick-start-desktop-wide-1440x1000.png
 - .\artifacts\design-audit\latest\screenshots\quick-start-desktop-1280x800.png
 - .\artifacts\design-audit\latest\screenshots\quick-start-tablet-768x1024.png

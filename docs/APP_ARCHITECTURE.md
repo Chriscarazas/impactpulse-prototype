@@ -14,29 +14,32 @@ The product needs a coherent route system, shared state, mock data, and reusable
 - `src/backend/supabase.js`: narrow Supabase read adapter for backend-aware prototype screens.
 - `src/styles/tokens.css`: design tokens.
 - `src/styles/app.css`: shared layout, component, and page styles.
+- `scripts/methodology-safety-check.mjs`: static guard for the Impact Account default and SROI safety baseline.
 - `scripts/design-audit.mjs`: route-aware screenshot, layout, and accessibility review.
 - `supabase/migrations/`: RLS-first database schema.
 - `supabase/seed.sql`: deterministic Workforce Pathways demo records.
 
 ## Route Spine
 
-- `/`: SROI Results
+- `/`: Impact Account
 - `/quick-start/`: Upload to First Insight
 - `/evidence/`: Evidence Review Queue
 - `/data-quality/`: Data Quality Overview
 - `/outcomes/`: Outcomes and Indicators
-- `/valuation/`: Financial Proxy Workspace
+- `/valuation/`: Method and Valuation Gate
 - `/assumptions/`: Assumptions Lab
 - `/decision/`: Decision Room
 - `/reports/`: Report Storyboard
-- `/portfolio/`: Organization Impact Overview
+- `/portfolio/`: Organization Impact Account
 - `/benchmarks/`: Benchmark Cohort Builder
 - `/sdg/`: SDG Target Mapping
-- `/assurance/`: Assurance Readiness
+- `/assurance/`: Assurance Matrix
 
 ## Build Rule
 
 Every route should use the same project evidence graph and demo data until a real backend exists. Do not create isolated mock numbers that contradict the workforce-development scenario.
+
+SROI appears only as governed method context in the current fortified-roadmap migration phase. The static prototype keeps exploratory values visible for continuity, but route copy, feature flags, and the methodology safety check block unsupported public-reporting, benchmark-comparison, allocation-optimization, and assurance-ready claims.
 
 ## Backend Boundary
 

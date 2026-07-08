@@ -396,6 +396,128 @@ h3 {
   max-width: var(--width-readable);
 }
 
+.safety-banner {
+  align-items: start;
+  background: var(--color-surface);
+  border: var(--border-strong);
+  border-left: 4px solid var(--color-status-risk);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  padding: clamp(var(--space-5), 3vw, var(--space-6));
+}
+
+.safety-banner h2 {
+  margin-bottom: var(--space-2);
+}
+
+.safety-banner p {
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: var(--width-readable);
+}
+
+.account-hero {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.9fr);
+}
+
+.account-metrics,
+.flag-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.account-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.account-metrics div,
+.flag-list div {
+  background: var(--color-surface-subtle);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+}
+
+.account-metrics dt,
+.flag-list dt,
+.account-section span,
+.eligibility-item span,
+.method-card span {
+  color: var(--color-brand-forest);
+  font-size: var(--text-xs);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.account-metrics dd,
+.flag-list dd {
+  color: var(--color-text-muted);
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.account-metrics strong {
+  color: var(--color-text-strong);
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  line-height: var(--line-tight);
+}
+
+.account-section-grid,
+.eligibility-grid,
+.method-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.account-section-grid,
+.eligibility-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.method-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.account-section,
+.eligibility-item,
+.method-card {
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4);
+}
+
+.account-section p,
+.eligibility-item p,
+.method-card p {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.eligibility-item strong {
+  color: var(--color-text-strong);
+  display: block;
+}
+
+.method-card h3 {
+  margin: 0;
+}
+
+.risk-callout {
+  border-left-color: var(--color-status-risk);
+}
+
 .result-hero {
   display: grid;
   gap: var(--space-6);
@@ -1346,6 +1468,11 @@ td {
   .layout,
   .content-grid,
   .result-hero,
+  .account-hero,
+  .account-metrics,
+  .account-section-grid,
+  .eligibility-grid,
+  .method-grid,
   .source-grid,
   .upload-flow-grid,
   .insight-grid,
@@ -1400,6 +1527,7 @@ td {
 
   .section,
   .panel,
+  .safety-banner,
   .project-header {
     border-radius: var(--radius-md);
     padding: var(--space-4);

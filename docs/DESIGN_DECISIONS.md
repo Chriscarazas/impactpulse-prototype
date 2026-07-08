@@ -133,3 +133,21 @@ The repository is still a framework-free static prototype with no Next.js `app/`
 Consequence:
 
 The local server can use Supabase's current project credentials through `.env.local`, while the app keeps the direct REST/Auth/Storage adapter until a deliberate framework migration happens.
+
+## 2026-07-08: Add Impact Account Default and SROI Safety Baseline
+
+Decision:
+
+Implement the first fortified-roadmap migration phase as a reversible, non-destructive migration phase. The home route now defaults to the Impact Account, while SROI appears only as governed method context with explicit eligibility, stakeholder legitimacy, harm, proxy, benchmark, and intended-use safeguards.
+
+Reason:
+
+The fortified roadmap positions ImpactPulse as an impact decision system rather than only an SROI calculator. The largest immediate methodological risk was presenting a ratio-led experience before eligibility, harm review, stakeholder legitimacy, proxy quality, and benchmark comparability were assessed.
+
+Consequence:
+
+Existing prototype behavior, demo data, Supabase reads, evidence upload, outcome hydration, and visual audit infrastructure are preserved. No database migration is required, no data is deleted, and no schema backfill is needed. The migration adds in-app feature flags such as `impactAccountDefault`, `sroiSafetyBaseline`, `sroiRequiresEligibility`, `sroiComparisonBlocked`, and `assuranceMatrixRequired` so the UI reframing can be rolled back or replaced by durable backend flags in a later phase.
+
+Rollback:
+
+Restore the `/` route to the prior SROI renderer and disable the methodology safety flags only if reviewers explicitly accept the fortified-roadmap risk. Keep the Supabase schema, seed data, evidence intake, and existing migrations unchanged.
